@@ -28,31 +28,34 @@
 ## Структура репозитория
 
 ```
-Broiler/
-├─ frontend/                     # Next.js приложение (дашборд)
-│  ├─ app/                       # страницы и API-роуты (app/api/* проксируют на backend)
+├─ frontend/                     # Next.js приложение (дашборд), Dockerfile
+│  ├─ app/                       # страницы, /login и API-роуты (app/api/* проксируют на backend)
 │  ├─ components/dashboard/      # основные UI-компоненты дашборда
-│  └─ lib/                       # утилиты, клиент к backend (spring-api.ts)
-├─ backend/broiler_monitoring/   # Spring Boot приложение
-│  ├─ src/main/java/...          # контроллеры, сервисы, сущности, репозитории
+│  ├─ lib/                       # утилиты, клиент к backend (spring-api.ts), auth.ts
+│  └─ proxy.ts                   # редирект на /login без сессии
+├─ backend/broiler_monitoring/   # Spring Boot приложение, Dockerfile
+│  ├─ src/main/java/...          # контроллеры, сервисы, сущности, security/
 │  ├─ src/main/resources/
-│  │  ├─ application.properties  # конфигурация приложения
-│  │  └─ db/migration/           # Flyway-миграции (V2…V17)
-│  ├─ docker-compose.yml         # Postgres, InfluxDB, Grafana, MinIO
-│  └─ .env.example               # шаблон переменных окружения
-├─ sensorImitation/              # Python-симулятор датчиков (sensor_simulator.py)
-├─ grafana/                      # provisioning дашбордов Grafana
-└─ deploy.yml                    # деплой
+│  │  ├─ application.properties  # конфигурация (секреты только из окружения)
+│  │  ├─ db/migration/           # Flyway-миграции
+│  │  └─ db/demo/                # демо-данные, только профиль demo
+│  ├─ docker-compose.yml         # локальная инфраструктура: Postgres, InfluxDB, Grafana, MinIO
+│  └─ .env.example               # шаблон переменных для локальной разработки
+├─ deploy.yml                    # прод: nginx + готовые образы backend/frontend + инфраструктура
+├─ deploy.env.example            # шаблон .env для сервера
+├─ deploy/nginx/                 # конфиг nginx (единственная точка входа)
+├─ grafana/provisioning/         # datasource и дашборды Grafana
+├─ sensorImitation/              # Python-симулятор датчиков
+└─ docs/sprint1/                 # требования, модель данных, нормы, KPI, аудит, тест-план
 ```
 
 ---
 
 ## Требования
 
-- **Node.js** 18+ и npm 
+- **Node.js** 22 и npm
 - **JDK 21**
-- **Docker** + Docker Compose (для Postgres/InfluxDB/MinIO/Grafana)
-
+- **Docker** + Docker Compose
 
 ---
 
@@ -62,58 +65,88 @@ Broiler/
 
 ```bash
 cd backend/broiler_monitoring
-cp .env.example .env         
-docker compose up -d          # postgres, influxdb, grafana, minio
+cp .env.example .env           # при желании поменяйте пароли
+docker compose up -d           # postgres, influxdb, grafana, minio (порты только на 127.0.0.1)
 ```
 
 ### 2. Backend (Spring Boot)
 
 ```bash
 cd backend/broiler_monitoring
-./mvnw spring-boot:run         # поднимется на http://localhost:8080
+./mvnw spring-boot:run         # http://localhost:8080, Swagger: /swagger-ui.html
 ```
 
-При старте Flyway автоматически накатит миграции на Postgres.
+Flyway накатит миграции. С `SPRING_PROFILES_ACTIVE=demo` (так в `.env.example`) добавятся демо-инциденты и уведомления.
+При первом старте создаётся администратор из `AUTH_BOOTSTRAP_ADMIN_USERNAME` / `AUTH_BOOTSTRAP_ADMIN_PASSWORD`.
 
 ### 3. Frontend (Next.js)
 
 ```bash
 cd frontend
-npm install
-npm run dev                    # http://localhost:3000
+npm ci
+npm run dev                    # http://localhost:3000 → /login
 ```
 
-Фронт по умолчанию ходит на backend по `http://localhost:8080`
-(см. `frontend/lib/spring-api.ts`). Переопределить можно переменной
-окружения `SPRING_API_URL`.
+Фронт ходит на backend по `http://localhost:8080`, переопределяется `SPRING_API_URL`.
+
+### Тесты
+
+```bash
+cd backend/broiler_monitoring && ./mvnw verify   # нужен запущенный Docker (Testcontainers)
+cd frontend && npm run lint && npx tsc --noEmit && npm run build
+```
+
+Те же проверки идут в CI на каждый pull request (`.github/workflows/ci.yml`).
+
+---
+
+## Аутентификация
+
+- Вход по логину и паролю: `POST /api/v1/auth/login` возвращает JWT, фронт хранит его в httpOnly-cookie.
+- Без токена API отвечает 401. Роли: OPERATOR, TECHNOLOGIST, VETERINARIAN, MANAGER, ADMIN (матрица прав — спринт 2).
+- Датчики и шлюзы пишут `POST /api/v1/telemetry/readings` с заголовком `X-Api-Key: $TELEMETRY_INGEST_API_KEY`.
 
 ---
 
 ## Переменные окружения
 
-Файл `backend/broiler_monitoring/.env` (создаётся из `.env.example`):
+Локально — `backend/broiler_monitoring/.env` (из `.env.example`), на сервере — `.env` рядом с `deploy.yml` (из `deploy.env.example`).
+Секреты не имеют значений по умолчанию: без них backend и compose не стартуют.
 
 | Переменная | Назначение |
 |------------|------------|
 | `POSTGRES_DB` / `POSTGRES_USER` / `POSTGRES_PASSWORD` | доступ к Postgres |
-| `POSTGRES_PORT` | порт Postgres на хосте (по умолчанию `5434`) |
-| `INCIDENT_ATTACHMENTS_S3_*` | доступ и настройки MinIO (вложения к инцидентам) |
-| `INCIDENT_ATTACHMENTS_MAX_*` | лимиты размера загружаемых файлов |
-
-Frontend (опционально): `SPRING_API_URL` — адрес backend.
+| `INCIDENT_ATTACHMENTS_S3_*` | MinIO для вложений к инцидентам |
+| `GRAFANA_ADMIN_USER` / `GRAFANA_ADMIN_PASSWORD` | вход в Grafana |
+| `AUTH_JWT_SECRET` | секрет подписи JWT, не короче 32 символов |
+| `AUTH_BOOTSTRAP_ADMIN_USERNAME` / `AUTH_BOOTSTRAP_ADMIN_PASSWORD` | первый администратор |
+| `TELEMETRY_INGEST_API_KEY` | ключ датчиков и шлюзов |
+| `SPRING_PROFILES_ACTIVE` | `demo` — накатить демо-данные |
+| `AUTH_COOKIE_SECURE` | `true`, когда сайт работает по HTTPS |
+| `SPRING_API_URL` (frontend) | адрес backend |
 
 ---
 
-## Порты по умолчанию
+## Порты
 
-| Сервис | Порт |
-|--------|------|
-| Frontend (Next.js) | 3000 |
-| Backend (Spring) | 8080 |
-| PostgreSQL | 5434 → 5432 |
-| InfluxDB | 8086 |
-| Grafana | 3001 |
-| MinIO (API / консоль) | 9000 / 9001 |
+| Сервис | Локально | Прод |
+|--------|----------|------|
+| Frontend | 3000 | через nginx :80 |
+| Backend | 8080 | только приём телеметрии через nginx |
+| PostgreSQL | 127.0.0.1:5434 | закрыт |
+| InfluxDB | 127.0.0.1:8086 | закрыт |
+| Grafana | 127.0.0.1:3001 | через nginx /grafana/ |
+| MinIO | 127.0.0.1:9000 / 9001 | закрыт |
+
+---
+
+## Прод
+
+- Push в основную ветку собирает образы backend и frontend и кладёт их в GHCR (`.github/workflows/deploy.yml`).
+- Деплой по SSH включается переменной репозитория `DEPLOY_ENABLED=true` и секретами `SSH_HOST`, `SSH_USER`, `SSH_PRIVATE_KEY`, `DEPLOY_PATH`.
+- На сервере перед первым деплоем: `cp deploy.env.example .env` и заполнить секреты.
+  Если тома Postgres, MinIO и Grafana уже существуют, они созданы со старыми паролями: укажите их в `.env` или смените пароли внутри сервисов.
+- HTTPS: выпустить сертификат на домен, добавить `server { listen 443 ssl; ... }` в `deploy/nginx/default.conf`, открыть порт 443 и выставить `AUTH_COOKIE_SECURE=true`.
 
 ---
 
@@ -128,9 +161,8 @@ Frontend (опционально): `SPRING_API_URL` — адрес backend.
 Frontend (Next.js) ── app/api/* ─────┘  (серверные роуты проксируют запросы на backend)
 ```
 
-- Телеметрия датчиков пишется в **InfluxDB**; в дев-режиме включён встроенный
-  симулятор (`sensor.simulation.enabled=true` в `application.properties`),
-  плюс есть отдельный Python-симулятор в `(ранняя версия)`.
+- Телеметрия датчиков пишется в **InfluxDB**; по умолчанию включён встроенный
+  симулятор (`SENSOR_SIMULATION_ENABLED`), есть и отдельный Python-симулятор в `sensorImitation/`.
 - Пороговые сервисы создают **уведомления** и **инциденты** в Postgres.
 - Frontend не обращается к backend напрямую из браузера — запросы идут через
   Next.js API-роуты (`frontend/app/api/*`), которые проксируют на Spring.
@@ -155,6 +187,7 @@ Flyway-миграции лежат в `backend/broiler_monitoring/src/main/resou
 и применяются автоматически при старте backend. Правила:
 
 - новые миграции добавляйте следующим номером версии (`V{N}__описание.sql`);
+- демо-данные кладите в `db/demo` (repeatable `R__*.sql`), а не в основные миграции;
 - уже применённые миграции **не редактируйте** — Flyway проверяет контрольные суммы;
 - префикс версии должен быть заглавной `V` (иначе Flyway файл проигнорирует).
 
