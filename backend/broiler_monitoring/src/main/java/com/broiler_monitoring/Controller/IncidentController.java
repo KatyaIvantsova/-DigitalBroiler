@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/incident")
+@RequestMapping("/api/v1/incidents")
 public class IncidentController {
 
     private final IncidentService service;
@@ -39,7 +39,7 @@ public class IncidentController {
         return service.getById(id);
     }
 
-    @GetMapping("code/{code}")
+    @GetMapping("/code/{code}")
     public Incident getByCode(@PathVariable String code){
         return service.getByCode(code);
     }

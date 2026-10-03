@@ -40,6 +40,28 @@ export async function PUT(
   })
 }
 
+export async function PATCH(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params
+  const body = await request.text()
+
+  const response = await springApi(`/api/v1/task/${id}`, {
+    method: "PATCH",
+    body: body || undefined,
+  })
+
+  const responseBody = await response.text()
+
+  return new Response(responseBody || null, {
+    status: response.status,
+    headers: {
+      "Content-Type": response.headers.get("Content-Type") ?? "application/json",
+    },
+  })
+}
+
 export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }

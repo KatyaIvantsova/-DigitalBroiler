@@ -8,7 +8,7 @@ export async function GET(
 ) {
   const { incidentId, attachmentId } = await context.params
   const response = await springApi(
-    `/api/v1/incident/${encodeURIComponent(incidentId)}/attachments/${encodeURIComponent(attachmentId)}/content`,
+    `/api/v1/incidents/${encodeURIComponent(incidentId)}/attachments/${encodeURIComponent(attachmentId)}/content`,
   )
 
   const headers = new Headers()

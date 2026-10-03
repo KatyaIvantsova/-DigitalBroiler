@@ -7,7 +7,7 @@ export async function GET(
   context: { params: Promise<{ incidentId: string }> },
 ) {
   const { incidentId } = await context.params
-  const response = await springApi(`/api/v1/incident/${incidentId}/attachments`)
+  const response = await springApi(`/api/v1/incidents/${incidentId}/attachments`)
   const body = await response.text()
 
   return new Response(body || null, {
@@ -24,7 +24,7 @@ export async function POST(
 ) {
   const { incidentId } = await context.params
   const formData = await request.formData()
-  const response = await springApi(`/api/v1/incident/${incidentId}/attachments`, {
+  const response = await springApi(`/api/v1/incidents/${incidentId}/attachments`, {
     method: "POST",
     body: formData,
   })

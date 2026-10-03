@@ -3,7 +3,7 @@ import { springApi } from "@/lib/spring-api"
 export const dynamic = "force-dynamic"
 
 export async function GET() {
-  const response = await springApi("/api/v1/incident")
+  const response = await springApi("/api/v1/incidents")
   const body = await response.text()
 
   return new Response(body || null, {
@@ -16,7 +16,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const body = await request.text()
-  const response = await springApi("/api/v1/incident", {
+  const response = await springApi("/api/v1/incidents", {
     method: "POST",
     body: body || undefined,
   })

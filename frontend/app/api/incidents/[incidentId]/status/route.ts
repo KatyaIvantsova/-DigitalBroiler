@@ -6,7 +6,7 @@ export async function PATCH(request: Request, context: { params: Promise<{ incid
   const { incidentId } = await context.params
   const body = await request.text()
 
-  const response = await springApi(`/api/v1/incident/${incidentId}/status`, {
+  const response = await springApi(`/api/v1/incidents/${incidentId}/status`, {
     method: "PATCH",
     body: body || JSON.stringify(""),
     headers: { "Content-Type": "application/json" },

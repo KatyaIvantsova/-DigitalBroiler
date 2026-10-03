@@ -8,7 +8,7 @@ export async function POST(
 ) {
   const { notificationId } = await context.params
   const body = await request.text()
-  const response = await springApi(`/api/v1/incident/from-notification/${notificationId}`, {
+  const response = await springApi(`/api/v1/incidents/from-notification/${notificationId}`, {
     method: "POST",
     body: body || undefined,
   })
