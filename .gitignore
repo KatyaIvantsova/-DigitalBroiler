@@ -17,3 +17,16 @@ node_modules
 .DS_Store
 *.tsbuildinfo
 dev-server*.log
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Logs and build output
+*.log
+target/
+
+# Frontend uses npm (package-lock.json) — other lock files are not committed
+pnpm-lock.yaml
+yarn.lock
