@@ -39,6 +39,10 @@ public final class Api {
         return login(mvc, AbstractIntegrationTest.ADMIN_USERNAME, AbstractIntegrationTest.ADMIN_PASSWORD);
     }
 
+    public String token() {
+        return token;
+    }
+
     public ResultActions get(String path) throws Exception {
         return call(HttpMethod.GET, path, null);
     }

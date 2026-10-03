@@ -141,3 +141,64 @@ export function todayIso(): string {
   const offset = now.getTimezoneOffset() * 60000
   return new Date(now.getTime() - offset).toISOString().slice(0, 10)
 }
+
+export type NormMetric =
+  | "TEMPERATURE"
+  | "HUMIDITY"
+  | "CO2"
+  | "AMMONIA"
+  | "LIGHT_INTENSITY"
+  | "LIGHT_HOURS"
+  | "BODY_WEIGHT"
+  | "FEED_INTAKE"
+  | "WATER_INTAKE"
+  | "FCR"
+  | "MORTALITY"
+  | "UNIFORMITY"
+
+export const NORM_METRIC_LABELS: Record<NormMetric, string> = {
+  TEMPERATURE: "Температура",
+  HUMIDITY: "Влажность",
+  CO2: "CO2",
+  AMMONIA: "Аммиак",
+  LIGHT_INTENSITY: "Освещённость",
+  LIGHT_HOURS: "Световой день",
+  BODY_WEIGHT: "Живая масса",
+  FEED_INTAKE: "Потребление корма",
+  WATER_INTAKE: "Потребление воды",
+  FCR: "Конверсия корма (FCR)",
+  MORTALITY: "Падёж за сутки",
+  UNIFORMITY: "Однородность",
+}
+
+export type Norm = {
+  id: string
+  breedCode: string | null
+  metric: NormMetric
+  ageFromDay: number
+  ageToDay: number
+  minValue: number | null
+  targetValue: number | null
+  maxValue: number | null
+  unit: string
+  source: string
+  version: number
+  previousId: string | null
+  validFrom: string
+  validTo: string | null
+  changedBy: string | null
+  changeComment: string | null
+}
+
+export type Rule = {
+  code: string
+  name: string
+  metric: NormMetric | null
+  sensorType: string | null
+  incidentType: string
+  warnMinutes: number
+  criticalDelta: number | null
+  criticalMinutes: number
+  clearMinutes: number
+  enabled: boolean
+}

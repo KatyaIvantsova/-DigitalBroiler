@@ -1,0 +1,189 @@
+{
+  "description": "Эталонные партии для проверки формул KPI (S3-08, docs/sprint1/04-kpi-formulas.md). Ожидаемые значения округлены: проценты 2 знака, масса 1, FCR 3, ADG 1, EPEF целое.",
+  "flocks": [
+    {
+      "name": "Пример S1-04: Ross 308, закрыта на 40-й день",
+      "input": {
+        "placedHeads": 20000,
+        "placedAvgWeightG": 42,
+        "mortality": 520,
+        "culled": 180,
+        "shippedHeads": 19300,
+        "avgWeightKg": 2.6,
+        "ageDays": 40,
+        "feedKg": 82000
+      },
+      "expected": {
+        "heads": 19300,
+        "survivalPct": 96.5,
+        "lossPct": 3.5,
+        "liveMassKg": 50180.0,
+        "fcr": 1.634,
+        "adgG": 64.0,
+        "epef": 384,
+        "cycleDays": 40
+      }
+    },
+    {
+      "name": "Cobb 500, закрыта на 35-й день, вес посадки 40 г",
+      "input": {
+        "placedHeads": 25000,
+        "placedAvgWeightG": 40,
+        "mortality": 600,
+        "culled": 150,
+        "shippedHeads": 24250,
+        "avgWeightKg": 2.2,
+        "ageDays": 35,
+        "feedKg": 81000
+      },
+      "expected": {
+        "heads": 24250,
+        "survivalPct": 97.0,
+        "lossPct": 3.0,
+        "liveMassKg": 53350.0,
+        "fcr": 1.518,
+        "adgG": 61.7,
+        "epef": 402,
+        "cycleDays": 35
+      }
+    },
+    {
+      "name": "Ross 308, высокий падёж, 42 дня",
+      "input": {
+        "placedHeads": 30000,
+        "placedAvgWeightG": 41,
+        "mortality": 1800,
+        "culled": 300,
+        "shippedHeads": 27900,
+        "avgWeightKg": 2.75,
+        "ageDays": 42,
+        "feedKg": 130000
+      },
+      "expected": {
+        "heads": 27900,
+        "survivalPct": 93.0,
+        "lossPct": 7.0,
+        "liveMassKg": 76725.0,
+        "fcr": 1.694,
+        "adgG": 64.5,
+        "epef": 359,
+        "cycleDays": 42
+      }
+    },
+    {
+      "name": "Сдано меньше живого поголовья по учёту (недостача 50 гол)",
+      "input": {
+        "placedHeads": 18000,
+        "placedAvgWeightG": null,
+        "mortality": 400,
+        "culled": 100,
+        "shippedHeads": 17450,
+        "avgWeightKg": 2.45,
+        "ageDays": 38,
+        "feedKg": 70500
+      },
+      "expected": {
+        "heads": 17450,
+        "survivalPct": 96.94,
+        "lossPct": 2.78,
+        "liveMassKg": 42752.5,
+        "fcr": 1.649,
+        "adgG": 63.4,
+        "epef": 379,
+        "cycleDays": 38
+      }
+    },
+    {
+      "name": "Активная партия, день 18, последнее взвешивание 0,72 кг",
+      "input": {
+        "placedHeads": 20000,
+        "placedAvgWeightG": 42,
+        "mortality": 150,
+        "culled": 30,
+        "shippedHeads": null,
+        "avgWeightKg": 0.72,
+        "ageDays": 18,
+        "feedKg": 17800
+      },
+      "expected": {
+        "heads": 19820,
+        "survivalPct": 99.1,
+        "lossPct": 0.9,
+        "liveMassKg": 14270.4,
+        "fcr": 1.247,
+        "adgG": 37.7,
+        "epef": 318,
+        "cycleDays": 18
+      }
+    },
+    {
+      "name": "Нет взвешиваний: FCR, ADG и EPEF не считаются",
+      "input": {
+        "placedHeads": 20000,
+        "placedAvgWeightG": 42,
+        "mortality": 90,
+        "culled": 10,
+        "shippedHeads": null,
+        "avgWeightKg": null,
+        "ageDays": 12,
+        "feedKg": 9000
+      },
+      "expected": {
+        "heads": 19900,
+        "survivalPct": 99.5,
+        "lossPct": 0.5,
+        "liveMassKg": null,
+        "fcr": null,
+        "adgG": null,
+        "epef": null,
+        "cycleDays": 12
+      }
+    },
+    {
+      "name": "Нет данных по корму: FCR и EPEF не считаются",
+      "input": {
+        "placedHeads": 20000,
+        "placedAvgWeightG": 42,
+        "mortality": 90,
+        "culled": 10,
+        "shippedHeads": null,
+        "avgWeightKg": 0.43,
+        "ageDays": 12,
+        "feedKg": null
+      },
+      "expected": {
+        "heads": 19900,
+        "survivalPct": 99.5,
+        "lossPct": 0.5,
+        "liveMassKg": 8557.0,
+        "fcr": null,
+        "adgG": 32.3,
+        "epef": null,
+        "cycleDays": 12
+      }
+    },
+    {
+      "name": "День посадки: ADG и EPEF не считаются",
+      "input": {
+        "placedHeads": 20000,
+        "placedAvgWeightG": 42,
+        "mortality": 0,
+        "culled": 0,
+        "shippedHeads": null,
+        "avgWeightKg": 0.042,
+        "ageDays": 0,
+        "feedKg": 0
+      },
+      "expected": {
+        "heads": 20000,
+        "survivalPct": 100.0,
+        "lossPct": 0.0,
+        "liveMassKg": 840.0,
+        "fcr": 0.0,
+        "adgG": null,
+        "epef": null,
+        "cycleDays": 0
+      }
+    }
+  ]
+}

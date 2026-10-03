@@ -20,6 +20,8 @@ public enum IncidentType {
     LIGHTING_CONTINUOUS_DARK("Постоянная темнота"),
     LIGHTING_MISSING_EVENTS("Потеря событий управления"),
 
+    SENSOR_NO_DATA("Нет данных от датчика"),
+
     OTHER("Прочее");
 
     private final String displayName;

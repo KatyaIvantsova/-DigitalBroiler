@@ -18,6 +18,16 @@ public interface IncidentRepository extends JpaRepository<Incident, UUID> {
 
     List<Incident> findByNotificationId(UUID notificationId);
 
+    /** Незакрытый автоматический инцидент с тем же ключом дедупликации (S3-04). */
+    @Query("SELECT i FROM Incident i WHERE i.dedupKey = :dedupKey AND i.status IN " +
+            "(com.broiler_monitoring.enumerated.IncidentStatus.OPEN, com.broiler_monitoring.enumerated.IncidentStatus.IN_PROGRESS) " +
+            "ORDER BY i.createdAt DESC")
+    List<Incident> findOpenByDedupKey(@Param("dedupKey") String dedupKey);
+
+    @Query("SELECT i FROM Incident i WHERE i.status IN " +
+            "(com.broiler_monitoring.enumerated.IncidentStatus.OPEN, com.broiler_monitoring.enumerated.IncidentStatus.IN_PROGRESS)")
+    List<Incident> findAllOpen();
+
     @Query("SELECT i FROM Incident i " +
             "WHERE COALESCE(i.detectedAt, i.createdAt) >= :from " +
             "AND COALESCE(i.detectedAt, i.createdAt) < :to " +

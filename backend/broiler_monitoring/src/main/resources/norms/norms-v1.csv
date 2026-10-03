@@ -1,0 +1,426 @@
+breed;metric;age_from;age_to;min;target;max;unit;source
+ROSS_308;TEMPERATURE;0;0;29.0;30.0;31.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;0;0;31.5;32.5;33.5;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;1;1;28.3;29.3;30.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;1;1;31.1;32.1;33.1;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;2;2;27.7;28.7;29.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;2;2;30.6;31.6;32.6;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;3;3;27.0;28.0;29.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;3;3;30.2;31.2;32.2;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;4;4;26.7;27.7;28.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;4;4;29.8;30.8;31.8;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;5;5;26.3;27.3;28.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;5;5;29.4;30.4;31.4;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;6;6;26.0;27.0;28.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;6;6;28.9;29.9;30.9;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;7;7;25.7;26.7;27.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;7;7;28.5;29.5;30.5;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;8;8;25.3;26.3;27.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;8;8;28.2;29.2;30.2;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;9;9;25.0;26.0;27.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;9;9;27.9;28.9;29.9;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;10;10;24.7;25.7;26.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;10;10;27.6;28.6;29.6;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;11;11;24.3;25.3;26.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;11;11;27.4;28.4;29.4;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;12;12;24.0;25.0;26.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;12;12;27.1;28.1;29.1;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;13;13;23.7;24.7;25.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;13;13;26.8;27.8;28.8;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;14;14;23.3;24.3;25.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;14;14;26.5;27.5;28.5;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;15;15;23.0;24.0;25.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;15;15;26.1;27.1;28.1;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;16;16;22.7;23.7;24.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;16;16;25.8;26.8;27.8;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;17;17;22.3;23.3;24.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;17;17;25.4;26.4;27.4;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;18;18;22.0;23.0;24.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;18;18;25.1;26.1;27.1;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;19;19;21.7;22.7;23.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;19;19;24.7;25.7;26.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;20;20;21.3;22.3;23.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;20;20;24.4;25.4;26.4;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;21;21;21.0;22.0;23.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;21;21;24.0;25.0;26.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;22;22;20.7;21.7;22.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;22;22;23.6;24.6;25.6;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;23;23;20.3;21.3;22.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;23;23;23.1;24.1;25.1;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;24;24;20.0;21.0;22.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;24;24;22.7;23.7;24.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;25;25;19.7;20.7;21.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;25;25;22.3;23.3;24.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;26;26;19.3;20.3;21.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;26;26;21.9;22.9;23.9;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;27;27;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;27;27;21.4;22.4;23.4;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;28;28;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;28;28;21.0;22.0;23.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;29;29;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;29;29;20.7;21.7;22.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;30;30;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;30;30;20.4;21.4;22.4;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;31;31;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;31;31;20.1;21.1;22.1;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;32;32;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;32;32;19.9;20.9;21.9;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;33;33;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;33;33;19.6;20.6;21.6;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;34;34;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;34;34;19.3;20.3;21.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;35;35;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;35;35;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;36;36;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;36;36;18.9;19.9;20.9;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;37;37;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;37;37;18.7;19.7;20.7;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;38;38;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;38;38;18.6;19.6;20.6;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;39;39;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;39;39;18.4;19.4;20.4;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;40;40;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;40;40;18.3;19.3;20.3;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;41;41;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;41;41;18.1;19.1;20.1;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+ROSS_308;TEMPERATURE;42;42;19.0;20.0;21.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+COBB_500;TEMPERATURE;42;42;18.0;19.0;20.0;C;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+;HUMIDITY;0;3;60;65;70;%;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+;HUMIDITY;4;14;50;60;70;%;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+;HUMIDITY;15;42;50;55;60;%;Aviagen Ross / Cobb-Vantress Cobb 500, docs/sprint1/03-norms.md
+;LIGHT_HOURS;0;7;23;23;24;h;Директива 2007/43/EC, Ross Handbook, docs/sprint1/03-norms.md
+;LIGHT_HOURS;8;42;18;19;20;h;Директива 2007/43/EC, Ross Handbook, docs/sprint1/03-norms.md
+;LIGHT_INTENSITY;0;7;30;35;40;lux;Директива 2007/43/EC, Ross Handbook, docs/sprint1/03-norms.md
+;LIGHT_INTENSITY;8;42;5;8;10;lux;Директива 2007/43/EC, Ross Handbook, docs/sprint1/03-norms.md
+;CO2;0;42;;;2500;ppm;Директива 2007/43/EC, Ross Handbook, docs/sprint1/03-norms.md
+;AMMONIA;0;42;;;10;ppm;Директива 2007/43/EC, Ross Handbook, docs/sprint1/03-norms.md
+;UNIFORMITY;7;42;80;85;;%;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;0;0;40;42;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;1;1;62;65;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;1;1;11.7;13.0;14.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;1;1;21;23.0;25;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;2;2;83;87;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;2;2;15.1;16.8;18.5;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;2;2;27;30.0;33;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;3;3;104;110;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;3;3;18.6;20.7;22.8;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;3;3;33;37.0;41;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;4;4;125;132;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;4;4;22.1;24.5;27.0;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;4;4;40;44.0;48;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;5;5;147;155;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;5;5;25.5;28.3;31.1;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;5;5;46;51.0;56;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;6;6;168;177;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;6;6;29.0;32.2;35.4;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;6;6;52;58.0;64;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;7;7;190;200;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;7;7;32.4;36.0;39.6;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;7;7;58;65.0;72;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;7;7;;0.88;0.93;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;8;8;234;246;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;8;8;37.0;41.1;45.2;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;8;8;67;74.0;81;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;8;8;;0.904;0.954;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;9;9;276;291;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;9;9;41.7;46.3;50.9;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;9;9;75;83.0;91;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;9;9;;0.929;0.979;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;10;10;320;337;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;10;10;46.3;51.4;56.5;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;10;10;84;93.0;102;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;10;10;;0.953;1.003;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;11;11;364;383;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;11;11;50.9;56.6;62.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;11;11;92;102.0;112;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;11;11;;0.977;1.027;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;12;12;408;429;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;12;12;55.5;61.7;67.9;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;12;12;100;111.0;122;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;12;12;;1.001;1.051;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;13;13;450;474;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;13;13;60.2;66.9;73.6;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;13;13;108;120.0;132;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;13;13;;1.026;1.076;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;14;14;494;520;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;14;14;64.8;72.0;79.2;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;14;14;117;130.0;143;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;14;14;;1.05;1.1;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;15;15;560;589;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;15;15;70.7;78.6;86.5;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;15;15;127;141.0;155;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;15;15;;1.074;1.124;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;16;16;624;657;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;16;16;76.6;85.1;93.6;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;16;16;138;153.0;168;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;16;16;;1.099;1.149;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;17;17;690;726;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;17;17;82.5;91.7;100.9;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;17;17;148;165.0;182;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;17;17;;1.123;1.173;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;18;18;754;794;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;18;18;88.5;98.3;108.1;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;18;18;159;177.0;195;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;18;18;;1.147;1.197;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;19;19;820;863;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;19;19;94.4;104.9;115.4;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;19;19;170;189.0;208;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;19;19;;1.171;1.221;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;20;20;884;931;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;20;20;100.3;111.4;122.5;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;20;20;181;201.0;221;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;20;20;;1.196;1.246;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;21;21;950;1000;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;21;21;106.2;118.0;129.8;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;21;21;191;212.0;233;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;21;21;;1.22;1.27;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;22;22;1032;1086;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;22;22;111.3;123.7;136.1;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;22;22;201;223.0;245;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;22;22;;1.243;1.293;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;23;23;1112;1171;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;23;23;116.5;129.4;142.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;23;23;210;233.0;256;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;23;23;;1.266;1.316;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;24;24;1194;1257;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;24;24;121.6;135.1;148.6;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;24;24;219;243.0;267;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;24;24;;1.289;1.339;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;25;25;1276;1343;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;25;25;126.8;140.9;155.0;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;25;25;229;254.0;279;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;25;25;;1.311;1.361;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;26;26;1358;1429;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;26;26;131.9;146.6;161.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;26;26;238;264.0;290;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;26;26;;1.334;1.384;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;27;27;1438;1514;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;27;27;137.1;152.3;167.5;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;27;27;247;274.0;301;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;27;27;;1.357;1.407;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;28;28;1520;1600;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;28;28;142.2;158.0;173.8;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;28;28;256;284.0;312;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;28;28;;1.38;1.43;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;29;29;1608;1693;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;29;29;146.6;162.9;179.2;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;29;29;264;293.0;322;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;29;29;;1.401;1.451;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;30;30;1697;1786;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;30;30;150.9;167.7;184.5;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;30;30;272;302.0;332;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;30;30;;1.423;1.473;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;31;31;1785;1879;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;31;31;155.3;172.6;189.9;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;31;31;280;311.0;342;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;31;31;;1.444;1.494;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;32;32;1872;1971;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;32;32;159.7;177.4;195.1;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;32;32;287;319.0;351;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;32;32;;1.466;1.516;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;33;33;1961;2064;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;33;33;164.1;182.3;200.5;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;33;33;295;328.0;361;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;33;33;;1.487;1.537;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;34;34;2049;2157;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;34;34;168.4;187.1;205.8;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;34;34;303;337.0;371;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;34;34;;1.509;1.559;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;35;35;2138;2250;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;35;35;172.8;192.0;211.2;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;35;35;311;346.0;381;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;35;35;;1.53;1.58;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;36;36;2226;2343;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;36;36;175.8;195.3;214.8;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;36;36;317;352.0;387;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;36;36;;1.55;1.6;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;37;37;2314;2436;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;37;37;178.7;198.6;218.5;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;37;37;321;357.0;393;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;37;37;;1.57;1.62;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;38;38;2403;2529;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;38;38;181.7;201.9;222.1;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;38;38;327;363.0;399;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;38;38;;1.59;1.64;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;39;39;2490;2621;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;39;39;184.6;205.1;225.6;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;39;39;332;369.0;406;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;39;39;;1.61;1.66;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;40;40;2578;2714;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;40;40;187.6;208.4;229.2;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;40;40;338;375.0;413;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;40;40;;1.63;1.68;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;41;41;2667;2807;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;41;41;190.5;211.7;232.9;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;41;41;343;381.0;419;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;41;41;;1.65;1.7;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;BODY_WEIGHT;42;42;2755;2900;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FEED_INTAKE;42;42;193.5;215.0;236.5;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;WATER_INTAKE;42;42;348;387.0;426;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+ROSS_308;FCR;42;42;;1.67;1.72;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;0;0;40;42;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;1;1;60;63;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;1;1;10.8;12.0;13.2;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;1;1;20;22.0;24;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;2;2;80;84;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;2;2;14.1;15.7;17.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;2;2;25;28.0;31;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;3;3;100;105;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;3;3;17.4;19.3;21.2;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;3;3;32;35.0;38;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;4;4;121;127;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;4;4;20.7;23.0;25.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;4;4;37;41.0;45;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;5;5;141;148;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;5;5;24.0;26.7;29.4;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;5;5;43;48.0;53;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;6;6;161;169;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;6;6;27.3;30.3;33.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;6;6;50;55.0;61;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;7;7;180;190;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;7;7;30.6;34.0;37.4;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;7;7;55;61.0;67;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;7;7;;0.89;0.94;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;8;8;222;234;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;8;8;35.2;39.1;43.0;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;8;8;63;70.0;77;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;8;8;;0.914;0.964;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;9;9;265;279;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;9;9;39.9;44.3;48.7;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;9;9;72;80.0;88;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;9;9;;0.939;0.989;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;10;10;307;323;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;10;10;44.5;49.4;54.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;10;10;80;89.0;98;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;10;10;;0.963;1.013;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;11;11;349;367;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;11;11;49.1;54.6;60.1;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;11;11;88;98.0;108;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;11;11;;0.987;1.037;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;12;12;390;411;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;12;12;53.7;59.7;65.7;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;12;12;96;107.0;118;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;12;12;;1.011;1.061;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;13;13;433;456;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;13;13;58.4;64.9;71.4;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;13;13;105;117.0;129;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;13;13;;1.036;1.086;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;14;14;475;500;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;14;14;63.0;70.0;77.0;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;14;14;113;126.0;139;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;14;14;;1.06;1.11;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;15;15;541;569;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;15;15;68.9;76.6;84.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;15;15;124;138.0;152;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;15;15;;1.084;1.134;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;16;16;605;637;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;16;16;74.8;83.1;91.4;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;16;16;135;150.0;165;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;16;16;;1.109;1.159;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;17;17;671;706;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;17;17;80.7;89.7;98.7;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;17;17;145;161.0;177;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;17;17;;1.133;1.183;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;18;18;735;774;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;18;18;86.7;96.3;105.9;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;18;18;156;173.0;190;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;18;18;;1.157;1.207;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;19;19;801;843;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;19;19;92.6;102.9;113.2;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;19;19;166;185.0;204;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;19;19;;1.181;1.231;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;20;20;865;911;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;20;20;98.5;109.4;120.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;20;20;177;197.0;217;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;20;20;;1.206;1.256;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;21;21;931;980;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;21;21;104.4;116.0;127.6;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;21;21;188;209.0;230;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;21;21;;1.23;1.28;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;22;22;1013;1066;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;22;22;109.5;121.7;133.9;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;22;22;197;219.0;241;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;22;22;;1.253;1.303;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;23;23;1093;1151;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;23;23;114.7;127.4;140.1;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;23;23;206;229.0;252;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;23;23;;1.276;1.326;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;24;24;1175;1237;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;24;24;119.8;133.1;146.4;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;24;24;216;240.0;264;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;24;24;;1.299;1.349;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;25;25;1257;1323;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;25;25;125.0;138.9;152.8;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;25;25;225;250.0;275;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;25;25;;1.321;1.371;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;26;26;1339;1409;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;26;26;130.1;144.6;159.1;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;26;26;234;260.0;286;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;26;26;;1.344;1.394;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;27;27;1419;1494;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;27;27;135.3;150.3;165.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;27;27;244;271.0;298;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;27;27;;1.367;1.417;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;28;28;1501;1580;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;28;28;140.4;156.0;171.6;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;28;28;253;281.0;309;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;28;28;;1.39;1.44;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;29;29;1586;1669;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;29;29;144.8;160.9;177.0;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;29;29;261;290.0;319;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;29;29;;1.411;1.461;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;30;30;1669;1757;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;30;30;149.1;165.7;182.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;30;30;268;298.0;328;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;30;30;;1.433;1.483;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;31;31;1754;1846;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;31;31;153.5;170.6;187.7;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;31;31;276;307.0;338;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;31;31;;1.454;1.504;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;32;32;1837;1934;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;32;32;157.9;175.4;192.9;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;32;32;284;316.0;348;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;32;32;;1.476;1.526;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;33;33;1922;2023;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;33;33;162.3;180.3;198.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;33;33;292;325.0;358;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;33;33;;1.497;1.547;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;34;34;2005;2111;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;34;34;166.6;185.1;203.6;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;34;34;300;333.0;366;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;34;34;;1.519;1.569;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;35;35;2090;2200;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;35;35;171.0;190.0;209.0;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;35;35;308;342.0;376;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;35;35;;1.54;1.59;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;36;36;2178;2293;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;36;36;174.0;193.3;212.6;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;36;36;313;348.0;383;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;36;36;;1.56;1.61;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;37;37;2267;2386;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;37;37;176.9;196.6;216.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;37;37;319;354.0;389;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;37;37;;1.58;1.63;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;38;38;2355;2479;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;38;38;179.9;199.9;219.9;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;38;38;324;360.0;396;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;38;38;;1.6;1.65;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;39;39;2442;2571;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;39;39;182.8;203.1;223.4;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;39;39;329;366.0;403;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;39;39;;1.62;1.67;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;40;40;2531;2664;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;40;40;185.8;206.4;227.0;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;40;40;335;372.0;409;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;40;40;;1.64;1.69;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;41;41;2619;2757;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;41;41;188.7;209.7;230.7;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;41;41;339;377.0;415;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;41;41;;1.66;1.71;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;BODY_WEIGHT;42;42;2708;2850;;g;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FEED_INTAKE;42;42;191.7;213.0;234.3;g/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;WATER_INTAKE;42;42;345;383.0;421;ml/bird;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+COBB_500;FCR;42;42;;1.68;1.73;kg/kg;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+;MORTALITY;0;7;;;0.15;%/day;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+;MORTALITY;8;28;;;0.07;%/day;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md
+;MORTALITY;29;42;;;0.1;%/day;Ross 308 / Cobb 500 Performance Objectives 2022, docs/sprint2/11-norms-production.md

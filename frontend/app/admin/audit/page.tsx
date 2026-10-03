@@ -11,6 +11,7 @@ const TYPES: Record<string, string> = {
   FLOCK: "Партии и учёт",
   INCIDENT: "Инциденты",
   NORM: "Нормы",
+  RULE: "Правила",
   USER: "Пользователи",
   SENSOR: "Датчики",
   HOUSE: "Птичники",

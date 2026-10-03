@@ -204,7 +204,7 @@ public class StructureService {
         }
     }
 
-    static ResponseStatusException notFound(String what, Object id) {
+    public static ResponseStatusException notFound(String what, Object id) {
         return new ResponseStatusException(HttpStatus.NOT_FOUND, "%s '%s' не найден(а)".formatted(what, id));
     }
 }

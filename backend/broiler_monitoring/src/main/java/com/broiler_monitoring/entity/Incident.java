@@ -78,6 +78,11 @@ public class Incident {
     @Column(length = 64)
     private String ruleCode;
 
+    /** Ключ дедупликации движка: правило + датчик, птичник или партия и дата. */
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @Column(length = 160)
+    private String dedupKey;
+
     private UUID assigneeId;
 
     private String assigneeRole;
