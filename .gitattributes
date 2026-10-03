@@ -1,0 +1,7 @@
+# Скрипты запускаются в Linux-контейнере: всегда LF, даже при клоне на Windows (core.autocrlf=true)
+* text=auto
+*.sh text eol=lf
+mvnw text eol=lf
+Dockerfile text eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
