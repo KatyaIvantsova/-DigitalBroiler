@@ -45,7 +45,7 @@
 ├─ deploy.env.example            # шаблон .env для сервера
 ├─ deploy/nginx/                 # конфиг nginx (единственная точка входа)
 ├─ grafana/provisioning/         # datasource и дашборды Grafana
-├─ sensorImitation/              # Python-симулятор датчиков
+├─ sensorImitation/              # Python-симулятор датчиков и генератор цикла партии (cycle_generator.py)
 └─ docs/sprint1…sprint6/        # аналитика и отчёты по спринтам
 ```
 
@@ -178,6 +178,10 @@ Frontend (Next.js) ── app/api/* ─────┘  (серверные ро
 
 - Телеметрия датчиков пишется в **InfluxDB**; по умолчанию включён встроенный
   симулятор (`SENSOR_SIMULATION_ENABLED`), есть и отдельный Python-симулятор в `sensorImitation/`.
+  Генератор `sensorImitation/cycle_generator.py` отыгрывает партию целиком: учёт, взвешивания, показания
+  и отклонения ([docs/sprint3/09-cycle-generator.md](docs/sprint3/09-cycle-generator.md)).
+- **Движок правил** раз в минуту сверяет показания с нормами возраста и кросса (таблицы `norms` и `rules`,
+  экран «Нормы и правила») и сам открывает и закрывает инциденты ([docs/sprint3](docs/sprint3/README.md)).
 - Пороговые сервисы создают **уведомления** и **инциденты** в Postgres.
 - Frontend не обращается к backend напрямую из браузера — запросы идут через
   Next.js API-роуты (`frontend/app/api/*`), которые проксируют на Spring.

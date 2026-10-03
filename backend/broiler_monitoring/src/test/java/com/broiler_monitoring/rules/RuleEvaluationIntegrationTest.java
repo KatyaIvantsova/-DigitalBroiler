@@ -106,6 +106,7 @@ class RuleEvaluationIntegrationTest extends AbstractIntegrationTest {
         assertThat(openFor(setup)).singleElement().satisfies(escalated -> {
             assertThat(escalated.getId()).isEqualTo(incident.getId());
             assertThat(escalated.getPriority()).isEqualTo(IncidentPriority.CRITICAL);
+            assertThat(escalated.getDescription()).contains("28,5 °C");
         });
 
         // В норме 15+ минут — инцидент, который никто не взял, закрывается автоматически

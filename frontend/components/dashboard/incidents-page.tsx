@@ -152,6 +152,7 @@ const backendIncidentTypeLabelMap: Record<string, string> = {
   LIGHTING_CONTINUOUS_LIGHT: "Освещение",
   LIGHTING_CONTINUOUS_DARK: "Освещение",
   LIGHTING_MISSING_EVENTS: "Освещение",
+  SENSOR_NO_DATA: "Нет данных от датчика",
 
   OTHER: "Прочее",
 }
@@ -175,6 +176,7 @@ const backendIncidentTypeIconMap: Record<string, LucideIcon> = {
   LIGHTING_CONTINUOUS_LIGHT: AlertTriangle,
   LIGHTING_CONTINUOUS_DARK: AlertTriangle,
   LIGHTING_MISSING_EVENTS: AlertTriangle,
+  SENSOR_NO_DATA: AlertTriangle,
 
   OTHER: AlertTriangle,
 }
@@ -660,6 +662,7 @@ const analyticsTypeFilterMap: Record<string, string> = {
   LIGHTING_CONTINUOUS_LIGHT: "Освещение",
   LIGHTING_CONTINUOUS_DARK: "Освещение",
   LIGHTING_MISSING_EVENTS: "Освещение",
+  SENSOR_NO_DATA: "Нет данных от датчика",
 
   OTHER: "Прочее",
 }

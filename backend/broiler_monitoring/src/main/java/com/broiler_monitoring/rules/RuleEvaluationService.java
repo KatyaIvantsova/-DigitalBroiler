@@ -174,7 +174,7 @@ public class RuleEvaluationService {
             String key = rule.getCode() + ":" + sensor.getId();
             switch (level) {
                 case WARNING, CRITICAL -> {
-                    double value = applicable.getLast().value();
+                    double value = applicable.stream().max(java.util.Comparator.comparing(RuleEngine.Reading::at)).orElseThrow().value();
                     automation.raise(alert(rule, key, typeFor(rule, norm.get(), value), level, sensor, context,
                             describe(rule, norm.get(), value, context, level)));
                     counter.raised++;
@@ -315,8 +315,9 @@ public class RuleEvaluationService {
     static String describe(Rule rule, Norm norm, double value, Context context, RuleEngine.Level level) {
         int minutes = level == RuleEngine.Level.CRITICAL ? rule.getCriticalMinutes() : rule.getWarnMinutes();
         String breed = context.flock() == null ? "" : ", " + context.flock().getBreedCode();
+        String unit = "C".equals(norm.getUnit()) ? "°C" : norm.getUnit();
         return "%s %s %s при норме %s %s (день %d%s) дольше %d мин".formatted(
-                rule.getMetric().getDisplayName(), format(value), norm.getUnit(), range(norm), norm.getUnit(), context.ageDay(), breed, minutes);
+                rule.getMetric().getDisplayName(), format(value), unit, range(norm), unit, context.ageDay(), breed, minutes);
     }
 
     static String range(Norm norm) {

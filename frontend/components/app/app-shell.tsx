@@ -14,6 +14,7 @@ type NavItem = { href: string; label: string; roles?: Role[] }
 export const NAV_ITEMS: NavItem[] = [
   { href: "/", label: "Ситуационный центр" },
   { href: "/flocks", label: "Партии" },
+  { href: "/norms", label: "Нормы и правила" },
   { href: "/admin/users", label: "Пользователи", roles: ["ADMIN"] },
   { href: "/admin/structure", label: "Птичники и датчики", roles: ["ADMIN"] },
   { href: "/admin/audit", label: "Журнал действий", roles: ["TECHNOLOGIST", "MANAGER", "ADMIN"] },

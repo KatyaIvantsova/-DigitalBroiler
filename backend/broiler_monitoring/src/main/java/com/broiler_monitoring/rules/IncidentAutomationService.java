@@ -78,7 +78,6 @@ public class IncidentAutomationService {
         incident.setSensorId(alert.sensorId());
         incident.setRuleCode(alert.ruleCode());
         incident.setDedupKey(alert.dedupKey());
-        incident.setDetectedAt(LocalDateTime.now(clock));
         Incident saved = incidents.save(incident);
         note(saved, "CREATED", "Создан правилом %s: %s".formatted(alert.ruleCode(), alert.description()));
         audit.record(AuditService.INCIDENT, saved.getId(), "CREATED", "Правило %s создало инцидент %s".formatted(alert.ruleCode(), saved.getCode()),
@@ -100,7 +99,8 @@ public class IncidentAutomationService {
         Incident incident = open.get();
         if (incident.getStatus() == IncidentStatus.OPEN) {
             incident.setStatus(IncidentStatus.RESOLVED);
-            incident.setResolvedAt(LocalDateTime.now(clock));
+            // Время инцидентов хранится в часовом поясе JVM, как createdAt/detectedAt в Incident.prePersist
+            incident.setResolvedAt(LocalDateTime.now());
             incident.setDecisionComment(message);
             incidents.save(incident);
             note(incident, "STATUS_CHANGED", "Статус изменён: OPEN → RESOLVED. " + message);
@@ -112,7 +112,7 @@ public class IncidentAutomationService {
                 .map(last -> BACK_TO_NORMAL.equals(last.getEventType()))
                 .orElse(false);
         if (!alreadyNoted) {
-            String time = LocalDateTime.now(clock).format(TIME);
+            String time = LocalDateTime.now(clock).format(TIME); // время площадки — для текста в истории
             note(incident, BACK_TO_NORMAL, "%s с %s. Инцидент в работе — закройте его после проверки.".formatted(message, time));
         }
         return Optional.of(incident);
