@@ -75,7 +75,9 @@ services:
       - broiler-network
 
   minio:
-    image: minio/minio:latest
+    # Официальные образы minio/minio и minio/mc удалены из Docker Hub (сентябрь 2026);
+    # используем бесплатную сборку Chainguard. Бакет backend создаёт сам при первой загрузке.
+    image: cgr.dev/chainguard/minio:latest
     restart: unless-stopped
     environment:
       MINIO_ROOT_USER: *s3-access-key
@@ -83,23 +85,6 @@ services:
     command: server /data --console-address ":9001"
     volumes:
       - minio_data:/data
-    networks:
-      - broiler-network
-
-  minio-init:
-    image: minio/mc:latest
-    depends_on:
-      - minio
-    environment:
-      S3_ACCESS_KEY: *s3-access-key
-      S3_SECRET_KEY: *s3-secret-key
-      S3_BUCKET: ${INCIDENT_ATTACHMENTS_S3_BUCKET:-broiler-incident-attachments}
-    entrypoint: >
-      /bin/sh -c "
-      until mc alias set local http://minio:9000 \"$$S3_ACCESS_KEY\" \"$$S3_SECRET_KEY\"; do sleep 2; done;
-      mc mb -p --ignore-existing \"local/$$S3_BUCKET\";
-      exit 0;
-      "
     networks:
       - broiler-network
 
@@ -112,8 +97,8 @@ services:
         condition: service_healthy
       influxdb:
         condition: service_healthy
-      minio-init:
-        condition: service_completed_successfully
+      minio:
+        condition: service_started
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-broiler_monitoring}
       POSTGRES_USER: ${POSTGRES_USER:-broiler}

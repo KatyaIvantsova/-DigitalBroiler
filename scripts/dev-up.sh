@@ -10,7 +10,7 @@ cd "$ROOT/backend/broiler_monitoring"
 [ -f .env ] || cp .env.example .env
 docker compose up -d postgres influxdb grafana
 # MinIO нужен только для вложений к инцидентам: если образ не скачался, остальное всё равно работает
-docker compose up -d minio minio-init || echo "MinIO не запустился: вложения к инцидентам работать не будут"
+docker compose up -d minio || echo "MinIO не запустился: вложения к инцидентам работать не будут"
 
 # Ждём Postgres
 for _ in $(seq 1 60); do
