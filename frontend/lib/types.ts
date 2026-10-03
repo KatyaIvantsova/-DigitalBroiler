@@ -197,8 +197,97 @@ export type Rule = {
   sensorType: string | null
   incidentType: string
   warnMinutes: number
+  warnDelta: number | null
   criticalDelta: number | null
   criticalMinutes: number
   clearMinutes: number
   enabled: boolean
+}
+
+// KPI партии (S4-01): null — показатель не считается, нет данных
+export type FlockKpi = {
+  flockId: string
+  closed: boolean
+  ageDays: number | null
+  placedHeads: number
+  mortality: number
+  culled: number
+  heads: number
+  unaccountedHeads: number | null
+  survivalPct: number
+  lossPct: number
+  avgWeightG: number | null
+  weightDate: string | null
+  weightAgeDays: number | null
+  feedKg: number | null
+  feedMissingDays: number
+  liveMassKg: number | null
+  fcr: number | null
+  adgG: number | null
+  epef: number | null
+  normWeightG: number | null
+  weightDeviationPct: number | null
+  normFcr: number | null
+  fcrDeviation: number | null
+}
+
+// План-факт по кривой кросса (S4-02)
+export type PlanFactPoint = {
+  date: string
+  ageDay: number
+  weightG: number
+  uniformityPct: number | null
+  normWeightG: number | null
+  normWeightMinG: number | null
+  weightDeviationG: number | null
+  weightDeviationPct: number | null
+  fcr: number | null
+  normFcr: number | null
+  fcrDeviation: number | null
+}
+
+export type PlanFact = {
+  breedCode: string
+  weighings: PlanFactPoint[]
+  curve: { ageDay: number; weightG: number | null; fcr: number | null }[]
+}
+
+export type FlockImportResult = {
+  applied: boolean
+  rows: number
+  created: number
+  updated: number
+  unchanged: number
+  weighings: number
+  errors: string[]
+}
+
+export type IncidentPriority = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"
+
+// Инцидент в объёме, нужном главной и экрану партии
+export type IncidentSummary = {
+  id: string
+  code: string
+  title: string
+  description: string | null
+  status: "OPEN" | "IN_PROGRESS" | "RESOLVED" | "CLOSED" | string
+  priority: IncidentPriority
+  type: string
+  house: string | null
+  houseId: string | null
+  flockId: string | null
+  createdAt: string
+}
+
+export type SensorReading = {
+  sensorId: string
+  sensorCode: string
+  type: string
+  value: number
+  unit: string
+  measuredAt: string
+}
+
+export function isOpenIncident(incident: IncidentSummary): boolean {
+  return incident.status === "OPEN" || incident.status === "IN_PROGRESS"
 }

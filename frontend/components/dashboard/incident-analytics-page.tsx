@@ -120,7 +120,10 @@ export function IncidentAnalyticsPage({ onOpenRegistry }: IncidentAnalyticsPageP
         signal,
       })
 
-      if (!response.ok) throw new Error(`Analytics request failed: ${response.status}`)
+      if (!response.ok) {
+        const body = (await response.json().catch(() => null)) as { message?: string } | null
+        throw new Error(body?.message || `Не удалось загрузить аналитику (ошибка ${response.status}).`)
+      }
 
       const nextData = (await response.json()) as IncidentAnalyticsResponse
       if (requestId !== requestCounter.current) return
@@ -131,7 +134,13 @@ export function IncidentAnalyticsPage({ onOpenRegistry }: IncidentAnalyticsPageP
     } catch (requestError) {
       if (signal?.aborted || requestId !== requestCounter.current) return
       console.error("Не удалось загрузить аналитику инцидентов", requestError)
-      setError("Не удалось загрузить аналитику. Проверьте соединение и повторите запрос.")
+      setError(
+        requestError instanceof TypeError
+          ? "Нет связи с сервером. Проверьте соединение и повторите запрос."
+          : requestError instanceof Error
+            ? requestError.message
+            : "Не удалось загрузить аналитику.",
+      )
     } finally {
       if (requestId === requestCounter.current) {
         setIsLoading(false)

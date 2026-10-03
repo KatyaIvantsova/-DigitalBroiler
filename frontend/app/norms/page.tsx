@@ -3,7 +3,16 @@
 import { useState } from "react"
 import { Download, History, Pencil, Play, Upload } from "lucide-react"
 import { AppShell, ErrorNote, Panel } from "@/components/app/app-shell"
-import { EditNormDialog, EditRuleDialog, ImportNormsDialog, NormHistoryDialog, normRange, unitLabel } from "@/components/norms/norm-dialogs"
+import {
+  EditNormDialog,
+  EditRuleDialog,
+  ImportNormsDialog,
+  isRecordRule,
+  NormHistoryDialog,
+  normRange,
+  recordRuleUnit,
+  unitLabel,
+} from "@/components/norms/norm-dialogs"
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useApi } from "@/hooks/use-api"
@@ -158,11 +167,23 @@ export default function NormsPage() {
                     <div className="text-xs text-zinc-500">{rule.code}</div>
                   </TableCell>
                   <TableCell>{rule.metric ? NORM_METRIC_LABELS[rule.metric] : "нет данных от датчика"}</TableCell>
-                  <TableCell className="text-right">{rule.warnMinutes ? `${rule.warnMinutes} мин` : "—"}</TableCell>
-                  <TableCell className="text-right">
-                    {rule.criticalDelta !== null ? `±${rule.criticalDelta.toLocaleString("ru-RU")} за ${rule.criticalMinutes} мин` : "—"}
-                  </TableCell>
-                  <TableCell className="text-right">{rule.clearMinutes ? `${rule.clearMinutes} мин` : "—"}</TableCell>
+                  {isRecordRule(rule) ? (
+                    <>
+                      <TableCell className="text-right">{`> ${rule.warnDelta?.toLocaleString("ru-RU")} ${recordRuleUnit(rule)}`}</TableCell>
+                      <TableCell className="text-right">
+                        {rule.criticalDelta !== null ? `> ${rule.criticalDelta.toLocaleString("ru-RU")} ${recordRuleUnit(rule)}` : "—"}
+                      </TableCell>
+                      <TableCell className="text-right">после исправления учёта</TableCell>
+                    </>
+                  ) : (
+                    <>
+                      <TableCell className="text-right">{rule.warnMinutes ? `${rule.warnMinutes} мин` : "—"}</TableCell>
+                      <TableCell className="text-right">
+                        {rule.criticalDelta !== null ? `±${rule.criticalDelta.toLocaleString("ru-RU")} за ${rule.criticalMinutes} мин` : "—"}
+                      </TableCell>
+                      <TableCell className="text-right">{rule.clearMinutes ? `${rule.clearMinutes} мин` : "—"}</TableCell>
+                    </>
+                  )}
                   <TableCell>{rule.enabled ? "включено" : "выключено"}</TableCell>
                   <TableCell className="text-right">
                     {canEdit && (
@@ -176,7 +197,7 @@ export default function NormsPage() {
             </TableBody>
           </Table>
           <p className="mt-2 text-xs text-zinc-500">
-            Нормы берутся для возраста и кросса активной партии птичника. Программа освещения проверяется раз в час по показаниям за сутки.
+            Нормы берутся для возраста и кросса активной партии птичника. Программа освещения проверяется раз в час по показаниям за сутки. Правила по учёту (падёж, корм, вода) — при каждом вводе и правке учёта.
           </p>
         </Panel>
       </div>

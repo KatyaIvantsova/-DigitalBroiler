@@ -13,6 +13,7 @@ import com.broiler_monitoring.enumerated.UserRole;
 import com.broiler_monitoring.enumerated.WeighingMethod;
 import com.broiler_monitoring.repository.DailyRecordRepository;
 import com.broiler_monitoring.repository.WeighingRepository;
+import com.broiler_monitoring.rules.FlockRecordRuleService;
 import com.broiler_monitoring.security.AccessService;
 import com.broiler_monitoring.security.CurrentActor;
 import org.springframework.http.HttpStatus;
@@ -44,9 +45,11 @@ public class FlockJournalService {
     private final AccessService access;
     private final AuditService audit;
     private final Clock clock;
+    private final FlockRecordRuleService recordRules;
 
     public FlockJournalService(FlockService flocks, DailyRecordRepository dailyRecords, WeighingRepository weighings,
-                               StructureService structure, AccessService access, AuditService audit, Clock clock) {
+                               StructureService structure, AccessService access, AuditService audit, Clock clock,
+                               FlockRecordRuleService recordRules) {
         this.flocks = flocks;
         this.dailyRecords = dailyRecords;
         this.weighings = weighings;
@@ -54,6 +57,7 @@ public class FlockJournalService {
         this.access = access;
         this.audit = audit;
         this.clock = clock;
+        this.recordRules = recordRules;
     }
 
     @Transactional(readOnly = true)
@@ -91,6 +95,7 @@ public class FlockJournalService {
                         .value("Выбраковка, гол", record.getCulledHeads())
                         .value("Корм, кг", record.getFeedConsumedKg())
                         .value("Вода, л", record.getWaterConsumedL()));
+        recordRules.recordChanged(flock, record.getRecordDate());
         return findResponse(flock, record.getId());
     }
 
@@ -114,6 +119,7 @@ public class FlockJournalService {
                 .field("Корм, кг", record.getFeedConsumedKg(), request.feedConsumedKg())
                 .field("Вода, л", record.getWaterConsumedL(), request.waterConsumedL())
                 .field("Комментарий", record.getComment(), blankToNull(request.comment()));
+        LocalDate previousDate = record.getRecordDate();
         record.setRecordDate(request.recordDate());
         record.setUpdatedBy(CurrentActor.get().id());
         apply(record, request);
@@ -124,6 +130,10 @@ public class FlockJournalService {
             audit.record(AuditService.FLOCK, flockId, "DAILY_RECORD_UPDATED",
                     "Исправлен учёт за %s".formatted(record.getRecordDate().format(DAY)), changes);
         }
+        if (!previousDate.equals(record.getRecordDate())) {
+            recordRules.recordChanged(flock, previousDate);
+        }
+        recordRules.recordChanged(flock, record.getRecordDate());
         return findResponse(flock, recordId);
     }
 
@@ -140,6 +150,7 @@ public class FlockJournalService {
                 AuditService.changes()
                         .value("Падёж, гол", record.getMortalityHeads())
                         .value("Выбраковка, гол", record.getCulledHeads()));
+        recordRules.recordChanged(flock, record.getRecordDate());
     }
 
     @Transactional(readOnly = true)

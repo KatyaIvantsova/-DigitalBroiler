@@ -1,5 +1,3 @@
-import analyticsFixture from "@/data/analytics-response.json"
-import type { IncidentAnalyticsResponse } from "@/lib/incident-analytics"
 import { springApi } from "@/lib/spring-api"
 
 export const dynamic = "force-dynamic"
@@ -33,35 +31,22 @@ export async function GET(request: Request) {
 
   const path = `/api/v1/incidents/analytics?${backendParams.toString()}`
 
+  // S4-08: без подстановки демо-данных. Нет связи с backend — честное 503 с понятным текстом.
   try {
-    const response = await withTimeout(
-      springApi(path),
-      BACKEND_TIMEOUT_MS
-    )
-
-    // Если backend ответил 5xx — тоже уходим в fallback
+    const response = await withTimeout(springApi(path), BACKEND_TIMEOUT_MS)
     if (response.status >= 500) {
-      console.warn(
-        `[analytics] backend returned ${response.status}, using mock fallback`
-      )
-      return buildMockResponse({ periodDays, workshop, house, slaMinutes })
+      console.warn(`[analytics] backend returned ${response.status}`)
+      return noConnection(`Сервер ответил ошибкой (${response.status}). Повторите запрос позже.`)
     }
 
     const body = await response.text()
-
     return new Response(body || null, {
       status: response.status,
-      headers: {
-        "Content-Type": response.headers.get("Content-Type") ?? "application/json",
-        "x-analytics-source": "backend",
-      },
+      headers: { "Content-Type": response.headers.get("Content-Type") ?? "application/json" },
     })
   } catch (error) {
-    console.warn(
-      "[analytics] backend unavailable, using mock fallback:",
-      error instanceof Error ? error.message : error
-    )
-    return buildMockResponse({ periodDays, workshop, house, slaMinutes })
+    console.warn("[analytics] backend unavailable:", error instanceof Error ? error.message : error)
+    return noConnection("Нет связи с сервером. Данные аналитики не загружены.")
   }
 }
 
@@ -70,43 +55,10 @@ export async function GET(request: Request) {
 function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   return Promise.race([
     promise,
-    new Promise<T>((_, reject) =>
-      setTimeout(() => reject(new Error(`Timeout after ${ms}ms`)), ms)
-    ),
+    new Promise<T>((_, reject) => setTimeout(() => reject(new Error(`Timeout after ${ms}ms`)), ms)),
   ])
 }
 
-function buildMockResponse({
-  periodDays,
-  workshop,
-  house,
-  slaMinutes,
-}: {
-  periodDays: 7 | 30
-  workshop: string | null
-  house: string | null
-  slaMinutes: number
-}) {
-  const fixture = analyticsFixture as IncidentAnalyticsResponse
-  const periodTo = new Date()
-  const periodFrom = new Date(periodTo)
-  periodFrom.setDate(periodFrom.getDate() - periodDays)
-
-  return Response.json(
-    {
-      ...fixture,
-      period: {
-        from: periodFrom.toISOString(),
-        to: periodTo.toISOString(),
-        days: periodDays,
-      },
-      filters: { workshop, house, slaMinutes },
-    } satisfies IncidentAnalyticsResponse,
-    {
-      status: 200,
-      headers: {
-        "x-analytics-source": "mock",
-      },
-    }
-  )
+function noConnection(message: string) {
+  return Response.json({ message }, { status: 503 })
 }

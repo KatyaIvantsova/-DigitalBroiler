@@ -43,6 +43,9 @@ public class Rule {
     @Column(nullable = false)
     private int warnMinutes;
 
+    /** Порог предупреждения для правил учёта: падёж — кратность нормы, корм и вода — падение, %. */
+    private Double warnDelta;
+
     private Double criticalDelta;
 
     @Column(nullable = false)

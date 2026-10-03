@@ -8,6 +8,8 @@ import { CloseFlockDialog } from "@/components/flocks/close-flock-dialog"
 import { DailyJournal } from "@/components/flocks/daily-journal"
 import { FlockFormDialog } from "@/components/flocks/flock-form-dialog"
 import { FlockStatusBadge } from "@/components/flocks/flock-status-badge"
+import { ImportRecordsDialog } from "@/components/flocks/import-records-dialog"
+import { KpiPlanFact } from "@/components/flocks/kpi-plan-fact"
 import { WeighingsPanel } from "@/components/flocks/weighings-panel"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -21,7 +23,9 @@ import {
   type Breed,
   type DailyRecord,
   type Flock,
+  type FlockKpi,
   type House,
+  type PlanFact,
   type Weighing,
 } from "@/lib/types"
 
@@ -34,7 +38,10 @@ export default function FlockPage({ params }: { params: Promise<{ id: string }> 
   const history = useApi<AuditEntry[]>(`/flocks/${id}/history`)
   const houses = useApi<House[]>("/houses")
   const breeds = useApi<Breed[]>("/breeds")
+  const kpi = useApi<FlockKpi>(`/flocks/${id}/kpi`)
+  const planFact = useApi<PlanFact>(`/flocks/${id}/plan-fact`)
   const [editing, setEditing] = useState(false)
+  const [importing, setImporting] = useState(false)
   const [closing, setClosing] = useState(false)
 
   const reloadAll = () => {
@@ -42,6 +49,8 @@ export default function FlockPage({ params }: { params: Promise<{ id: string }> 
     records.reload()
     weighings.reload()
     history.reload()
+    kpi.reload()
+    planFact.reload()
   }
 
   const data = flock.data
@@ -61,6 +70,11 @@ export default function FlockPage({ params }: { params: Promise<{ id: string }> 
       actions={
         data && isManagerOfFlocks ? (
           <div className="flex gap-2">
+            {data.status !== "PLANNED" && (
+              <Button variant="outline" onClick={() => setImporting(true)}>
+                Импорт учёта
+              </Button>
+            )}
             <Button variant="outline" onClick={() => setEditing(true)} disabled={!houses.data || !breeds.data}>
               Изменить
             </Button>
@@ -111,6 +125,7 @@ export default function FlockPage({ params }: { params: Promise<{ id: string }> 
               <TabsList>
                 <TabsTrigger value="journal">Учёт по дням</TabsTrigger>
                 <TabsTrigger value="weighings">Взвешивания</TabsTrigger>
+                <TabsTrigger value="kpi">KPI и план-факт</TabsTrigger>
                 <TabsTrigger value="history">История изменений</TabsTrigger>
               </TabsList>
               <TabsContent value="journal" className="pt-3">
@@ -120,6 +135,9 @@ export default function FlockPage({ params }: { params: Promise<{ id: string }> 
               <TabsContent value="weighings" className="pt-3">
                 <ErrorNote message={weighings.error} />
                 <WeighingsPanel flock={data} weighings={weighings.data ?? []} zones={zones} canEdit={canEnterJournal} onChanged={reloadAll} />
+              </TabsContent>
+              <TabsContent value="kpi" className="pt-3">
+                <KpiPlanFact kpi={kpi.data} planFact={planFact.data} error={kpi.error ?? planFact.error} />
               </TabsContent>
               <TabsContent value="history" className="pt-3">
                 <ErrorNote message={history.error} />
@@ -131,6 +149,7 @@ export default function FlockPage({ params }: { params: Promise<{ id: string }> 
           {editing && houses.data && breeds.data && (
             <FlockFormDialog open={editing} onOpenChange={setEditing} flock={data} houses={houses.data} breeds={breeds.data} onSaved={reloadAll} />
           )}
+          {importing && <ImportRecordsDialog flock={data} onClose={() => setImporting(false)} onImported={reloadAll} />}
           {closing && <CloseFlockDialog flock={data} open={closing} onOpenChange={setClosing} onClosed={reloadAll} />}
         </>
       )}

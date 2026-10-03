@@ -28,6 +28,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.IntFunction;
 
 /**
  * Справочник норм (S3-01, S3-02): поиск нормы для возраста и кросса, правка с версионированием, импорт CSV.
@@ -72,9 +73,16 @@ public class NormService implements ApplicationRunner {
 
     /** Действующая норма для показателя, кросса и возраста. Норма конкретного кросса важнее общей. */
     public Optional<Norm> find(NormMetric metric, String breedCode, int ageDay) {
-        return norms.findByMetricAndValidToIsNull(metric).stream()
-                .filter(norm -> norm.covers(ageDay))
+        return lookup(metric, breedCode).apply(ageDay);
+    }
+
+    /** Поиск нормы по возрасту для одного показателя и кросса: справочник читается один раз (кривые для графиков). */
+    public IntFunction<Optional<Norm>> lookup(NormMetric metric, String breedCode) {
+        List<Norm> candidates = norms.findByMetricAndValidToIsNull(metric).stream()
                 .filter(norm -> norm.getBreedCode() == null || norm.getBreedCode().equals(breedCode))
+                .toList();
+        return ageDay -> candidates.stream()
+                .filter(norm -> norm.covers(ageDay))
                 .min(Comparator.comparing((Norm norm) -> norm.getBreedCode() == null ? 1 : 0)
                         .thenComparing(norm -> norm.getAgeToDay() - norm.getAgeFromDay()));
     }
