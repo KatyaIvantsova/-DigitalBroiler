@@ -10,6 +10,8 @@ import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.web.bind.annotation.*;
@@ -99,8 +101,15 @@ public class IncidentController {
     @PatchMapping("/{id}/assign")
     public Incident assign(
             @PathVariable UUID id,
-            @RequestBody(required = false) AssignIncidentRequest request){
-        return service.assign(id, request);
+            @RequestBody(required = false) AssignIncidentRequest request,
+            @AuthenticationPrincipal Jwt jwt){
+        // Исполнитель — тот, кто вошёл в систему, а не тот, кого прислал клиент.
+        AssignIncidentRequest effective = request != null ? request : new AssignIncidentRequest();
+        if (jwt != null) {
+            effective.setUserId(UUID.fromString(jwt.getSubject()));
+            effective.setUserName(jwt.getClaimAsString("name"));
+        }
+        return service.assign(id, effective);
     }
 
 

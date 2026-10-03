@@ -8,9 +8,8 @@ const nextConfig = {
   turbopack: {
     root: __dirname,
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  // Самодостаточная сборка для Docker-образа (node server.js)
+  output: 'standalone',
   images: {
     unoptimized: true,
   },

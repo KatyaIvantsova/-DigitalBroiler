@@ -11,6 +11,8 @@ DEFAULT_BACKEND_URL = "http://localhost:8080/api/v1/telemetry/readings"
 BACKEND_URL = os.getenv("BACKEND_URL", DEFAULT_BACKEND_URL)
 GATEWAY_ID = os.getenv("GATEWAY_ID", "GW-FARM-1-HOUSE-4")
 INTERVAL_SECONDS = int(os.getenv("INTERVAL_SECONDS", "600"))
+# Ключ приёма телеметрии (TELEMETRY_INGEST_API_KEY на backend), уходит в заголовке X-Api-Key
+API_KEY = os.getenv("TELEMETRY_INGEST_API_KEY", "")
 
 
 SENSORS = [
@@ -121,10 +123,13 @@ def build_payload() -> dict:
 
 def send_payload(payload: dict) -> None:
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+    headers = {"Content-Type": "application/json"}
+    if API_KEY:
+        headers["X-Api-Key"] = API_KEY
     request = Request(
         BACKEND_URL,
         data=body,
-        headers={"Content-Type": "application/json"},
+        headers=headers,
         method="POST",
     )
 
