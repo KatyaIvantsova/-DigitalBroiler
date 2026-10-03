@@ -3,6 +3,7 @@ name: Deploy
 on:
   push:
     branches:
+      - main
       - master
   workflow_dispatch:
 
@@ -59,6 +60,8 @@ jobs:
   deploy:
     name: Deploy to server
     needs: images
+    # Включается переменной репозитория DEPLOY_ENABLED=true, когда заданы SSH-секреты сервера
+    if: vars.DEPLOY_ENABLED == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
