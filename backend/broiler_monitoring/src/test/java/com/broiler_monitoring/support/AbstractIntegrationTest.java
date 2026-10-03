@@ -42,6 +42,8 @@ public abstract class AbstractIntegrationTest {
         registry.add("telemetry.influx.database", () -> "broiler_telemetry");
         registry.add("telemetry.ingest.api-key", () -> INGEST_API_KEY);
         registry.add("sensor.simulation.enabled", () -> "false");
+        // Тесты запускают цикл правил сами (RuleEvaluationService.evaluateAll)
+        registry.add("rules.evaluation.enabled", () -> "false");
         registry.add("auth.jwt.secret", () -> "integration-test-secret-at-least-32-bytes-long");
         registry.add("auth.bootstrap-admin.username", () -> ADMIN_USERNAME);
         registry.add("auth.bootstrap-admin.password", () -> ADMIN_PASSWORD);

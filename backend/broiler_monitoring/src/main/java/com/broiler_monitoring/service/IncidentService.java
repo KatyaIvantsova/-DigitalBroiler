@@ -338,7 +338,7 @@ public class IncidentService {
         }
     }
 
-    private String generateIncidentCode(){
+    public static String generateIncidentCode(){
         String datePart = LocalDateTime.now().format(INCIDENT_CODE_DATE_FORMAT);
         String randomPart = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
 

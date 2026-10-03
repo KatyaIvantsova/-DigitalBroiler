@@ -54,6 +54,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/flocks/*/daily-records/**", "/api/v1/flocks/*/weighings/**")
                         .hasAnyRole(OPERATOR, TECHNOLOGIST, VETERINARIAN, ADMIN)
                         .requestMatchers("/api/v1/flocks/**").hasAnyRole(TECHNOLOGIST, ADMIN)
+                        .requestMatchers("/api/v1/norms/**", "/api/v1/rules/**").hasAnyRole(TECHNOLOGIST, ADMIN)
                         .anyRequest().hasAnyRole(USER_ROLES))
                 .oauth2ResourceServer(oauth -> oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .addFilterBefore(new TelemetryApiKeyFilter(telemetryApiKey), BearerTokenAuthenticationFilter.class);

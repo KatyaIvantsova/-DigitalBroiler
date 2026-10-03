@@ -1,262 +1,90 @@
 package com.broiler_monitoring.service;
 
+import com.broiler_monitoring.Telemetry.InfluxTelemetryPoint;
 import com.broiler_monitoring.Telemetry.InfluxTelemetryStorage;
-import com.broiler_monitoring.Telemetry.TelemetryService;
-import com.broiler_monitoring.Telemetry.dto.SensorReadingResponse;
-import com.broiler_monitoring.entity.Incident;
-import com.broiler_monitoring.enumerated.IncidentPriority;
-import com.broiler_monitoring.enumerated.IncidentSource;
-import com.broiler_monitoring.enumerated.IncidentStatus;
-import com.broiler_monitoring.enumerated.IncidentType;
-import com.broiler_monitoring.repository.IncidentRepository;
+import com.broiler_monitoring.Telemetry.Sensor;
+import com.broiler_monitoring.Telemetry.SensorRepository;
+import com.broiler_monitoring.Telemetry.SensorType;
+import com.broiler_monitoring.entity.House;
+import com.broiler_monitoring.repository.HouseRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
+import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+/**
+ * Равномерность освещения по птичнику: разброс последних показаний датчиков освещённости, % от среднего.
+ * Освещённость и программа освещения проверяются движком правил по нормам для возраста партии
+ * (rules.RuleEvaluationService, S3-06) — константы 25–40 лк и заглушка расписания удалены.
+ */
 @Service
 public class LightingMonitoringService {
 
     private static final Logger log = LoggerFactory.getLogger(LightingMonitoringService.class);
+    /** Показания старше этого срока в расчёт не берутся. */
+    private static final Duration FRESH = Duration.ofMinutes(30);
+    /** Ниже этой освещённости свет выключен (тёмный период) — равномерность не считается. */
+    private static final double LIGHT_ON_LUX = 1.0;
 
-    // Датчики освещения по зонам
-    private static final List<String> LIGHT_SENSORS = List.of(
-            "LIGHT-01", "LIGHT-02", "LIGHT-03", "LIGHT-04", "LIGHT-05"
-    );
-
-    private final TelemetryService telemetryService;
-    private final IncidentRepository incidentRepository;
+    private final boolean enabled;
+    private final SensorRepository sensors;
+    private final HouseRepository houses;
     private final InfluxTelemetryStorage influxStorage;
+    private final Clock clock;
 
-    public LightingMonitoringService(TelemetryService telemetryService,
-                                     IncidentRepository incidentRepository,
-                                     InfluxTelemetryStorage influxStorage) {
-        this.telemetryService = telemetryService;
-        this.incidentRepository = incidentRepository;
+    public LightingMonitoringService(@Value("${rules.evaluation.enabled:true}") boolean enabled,
+                                     SensorRepository sensors, HouseRepository houses,
+                                     InfluxTelemetryStorage influxStorage, Clock clock) {
+        this.enabled = enabled;
+        this.sensors = sensors;
+        this.houses = houses;
         this.influxStorage = influxStorage;
+        this.clock = clock;
     }
 
-    @Scheduled(fixedDelay = 1200000) // каждые 20 минут
-    public void checkMetrics() {
-        log.info("Проверка показателей освещения...");
-        checkIlluminance();
-        checkUniformity();
-        checkScheduleCompliance();
-    }
-
-    // ========== 1. ОСВЕЩЕННОСТЬ ==========
-    private void checkIlluminance() {
-        double minNorm = getMinNormByAge();
-        double maxNorm = getMaxNormByAge();
-
-        for (String sensorCode : LIGHT_SENSORS) {
-            SensorReadingResponse reading = getLatestReading(sensorCode);
-            if (reading == null) {
-//                createIncident(
-//                        IncidentType.LIGHTING_ILLUMINANCE_LOW,
-//                        "Потеря данных датчика освещения",
-//                        String.format("Нет данных от датчика %s", sensorCode)
-//                );
+    @Scheduled(fixedDelay = 1200000, initialDelay = 120000) // каждые 20 минут
+    public void checkUniformity() {
+        if (!enabled) {
+            return;
+        }
+        for (House house : houses.findAll()) {
+            if (!house.isActive()) {
                 continue;
             }
-
-            double lux = reading.getValue();
-
-            if (lux < minNorm) {
-                createIncident(
-                        IncidentType.LIGHTING_ILLUMINANCE_LOW,
-                        "Освещенность ниже нормы",
-                        String.format("Датчик %s: %.1f lux (норма: %.0f-%.0f lux)",
-                                sensorCode, lux, minNorm, maxNorm)
-                );
-            } else if (lux > maxNorm) {
-                createIncident(
-                        IncidentType.LIGHTING_ILLUMINANCE_HIGH,
-                        "Освещенность выше нормы",
-                        String.format("Датчик %s: %.1f lux (норма: %.0f-%.0f lux)",
-                                sensorCode, lux, minNorm, maxNorm)
-                );
+            try {
+                checkUniformity(house);
+            } catch (Exception exception) {
+                log.warn("Равномерность освещения птичника {} не рассчитана: {}", house.getCode(), exception.getMessage());
             }
         }
     }
 
-    // ========== 2. РАВНОМЕРНОСТЬ ОСВЕЩЕНИЯ ==========
-    private void checkUniformity() {
-        double minLux = Double.MAX_VALUE;
-        double maxLux = Double.MIN_VALUE;
-        double sumLux = 0;
-        int activeSensors = 0;
-
-        for (String sensorCode : LIGHT_SENSORS) {
-            SensorReadingResponse reading = getLatestReading(sensorCode);
-            if (reading != null) {
-                double lux = reading.getValue();
-                minLux = Math.min(minLux, lux);
-                maxLux = Math.max(maxLux, lux);
-                sumLux += lux;
-                activeSensors++;
+    private void checkUniformity(House house) {
+        Instant freshFrom = clock.instant().minus(FRESH);
+        List<Double> values = new ArrayList<>();
+        for (Sensor sensor : sensors.findAll()) {
+            if (!house.getId().equals(sensor.getHouseId()) || sensor.getType() != SensorType.LIGHT || !Boolean.TRUE.equals(sensor.getActive())) {
+                continue;
+            }
+            List<InfluxTelemetryPoint> latest = influxStorage.findLatest(sensor.getCode(), 1);
+            if (!latest.isEmpty() && latest.getFirst().value() != null && !latest.getFirst().measuredAt().isBefore(freshFrom)) {
+                values.add(latest.getFirst().value());
             }
         }
-
-        if (activeSensors < 2) {
-            log.warn("Недостаточно датчиков для расчета равномерности: {}", activeSensors);
+        if (values.size() < 2 || values.stream().allMatch(value -> value < LIGHT_ON_LUX)) {
             return;
         }
-
-        double avgLux = sumLux / activeSensors;
-        double uniformity = (maxLux - minLux) / avgLux * 100;
-
-
-        influxStorage.saveUniformity(
-                "house-4",
-                minLux, maxLux, avgLux,
-                uniformity,
-                activeSensors
-        );
-
-
-        if (uniformity > 20) {
-//            createIncident(
-//                    IncidentType.LIGHTING_UNIFORMITY_VIOLATION,
-//                    "Нарушение равномерности освещения",
-//                    String.format("Равномерность: %.1f%% (норма ≤20%%)", uniformity)
-//            );
-        }
+        double min = values.stream().mapToDouble(Double::doubleValue).min().orElseThrow();
+        double max = values.stream().mapToDouble(Double::doubleValue).max().orElseThrow();
+        double avg = values.stream().mapToDouble(Double::doubleValue).average().orElseThrow();
+        double unevenness = avg == 0 ? 0 : (max - min) / avg * 100;
+        influxStorage.saveUniformity(house.getCode(), min, max, avg, unevenness, values.size());
     }
-
-    // ========== ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ ==========
-
-    private void checkScheduleCompliance() {
-        LightingScheduleSnapshot snapshot = getScheduleSnapshot();
-
-        int allowedDeviationMinutes = 15;
-        double compliancePercent = Math.max(
-                0,
-                100.0 - ((double) snapshot.deviationMinutes() / allowedDeviationMinutes * 100.0)
-        );
-
-        influxStorage.saveLightingScheduleCompliance(
-                "house-4",
-                snapshot.scheduledLightMinutes(),
-                snapshot.actualLightMinutes(),
-                snapshot.scheduledDarkMinutes(),
-                snapshot.actualDarkMinutes(),
-                snapshot.deviationMinutes(),
-                compliancePercent,
-                resolveScheduleStatus(snapshot.deviationMinutes(), snapshot.actualDarkMinutes())
-        );
-
-        if (snapshot.actualDarkMinutes() < 240) {
-            createIncident(
-                    IncidentType.LIGHTING_DARK_PERIOD_VIOLATION,
-                    "Критическое нарушение темного периода",
-                    String.format("Темный период %.1f ч при минимуме 6 ч", snapshot.actualDarkMinutes() / 60.0),
-                    IncidentPriority.CRITICAL
-            );
-            return;
-        }
-
-        if (snapshot.deviationMinutes() > 15) {
-            createIncident(
-                    IncidentType.LIGHTING_SCHEDULE_DEVIATION,
-                    "Нарушение светового режима",
-                    String.format("Отклонение расписания %d мин при допустимых 10-15 мин", snapshot.deviationMinutes()),
-                    IncidentPriority.HIGH
-            );
-            return;
-        }
-
-        if (snapshot.deviationMinutes() > 10 || snapshot.actualDarkMinutes() < 360) {
-            createIncident(
-                    IncidentType.LIGHTING_SCHEDULE_DEVIATION,
-                    "Отклонение от программы освещения",
-                    String.format("Соблюдение режима %.1f%%, отклонение %d мин, темный период %.1f ч",
-                            compliancePercent, snapshot.deviationMinutes(), snapshot.actualDarkMinutes() / 60.0),
-                    IncidentPriority.MEDIUM
-            );
-        }
-    }
-
-    private SensorReadingResponse getLatestReading(String sensorCode) {
-        try {
-            List<SensorReadingResponse> readings = telemetryService
-                    .getReadingsBySensorCode(sensorCode, 1);
-            return readings.isEmpty() ? null : readings.get(0);
-        } catch (Exception e) {
-            log.error("Ошибка получения данных с датчика {}: {}", sensorCode, e.getMessage());
-            return null;
-        }
-    }
-
-    private double getMinNormByAge() {
-        return 25.0; // для возраста 0-7 дней
-    }
-
-    private double getMaxNormByAge() {
-        return 40.0; // для возраста 0-7 дней
-    }
-
-    private LightingScheduleSnapshot getScheduleSnapshot() {
-        return new LightingScheduleSnapshot(
-                1080,
-                1112,
-                360,
-                328,
-                12
-        );
-    }
-
-    private String resolveScheduleStatus(int deviationMinutes, int actualDarkMinutes) {
-        if (actualDarkMinutes < 240) {
-            return "CRITICAL";
-        }
-        if (deviationMinutes > 15) {
-            return "VIOLATION";
-        }
-        if (deviationMinutes > 10 || actualDarkMinutes < 360) {
-            return "WARNING";
-        }
-        return "NORMAL";
-    }
-
-    private void createIncident(IncidentType type, String title, String description) {
-        createIncident(type, title, description, IncidentPriority.HIGH);
-    }
-
-    private void createIncident(IncidentType type, String title, String description, IncidentPriority priority) {
-        Incident incident = new Incident();
-        incident.setCode(generateIncidentCode());
-        incident.setType(type);
-        incident.setTitle(title);
-        incident.setDescription(description);
-        incident.setPriority(priority);
-        incident.setStatus(IncidentStatus.OPEN);
-        incident.setSource(IncidentSource.SYSTEM);
-        incident.setWorkshop("Бройлерный цех № 1");
-        incident.setHouse("Птичник 4");
-
-
-        incidentRepository.save(incident);
-        log.info("Создан инцидент: {} - {}", title, description);
-    }
-
-    private String generateIncidentCode() {
-        return "INC-" + System.currentTimeMillis() + "-" +
-                UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-    }
-
-    private record LightingScheduleSnapshot(
-            int scheduledLightMinutes,
-            int actualLightMinutes,
-            int scheduledDarkMinutes,
-            int actualDarkMinutes,
-            int deviationMinutes
-    ) {
-    }
-
-
 }
