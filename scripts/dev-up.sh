@@ -27,7 +27,14 @@ pkill -f "broiler_monitoring-.*\.jar" 2>/dev/null || true
 setsid nohup java -jar "$JAR" > "$ROOT/logs/backend.log" 2>&1 < /dev/null &
 
 cd "$ROOT/frontend"
-[ -f .next/standalone/server.js ] || { npm ci --no-audit --no-fund; npm run build; }
+if [ ! -f .next/standalone/server.js ]; then
+  for attempt in 1 2 3; do
+    npm ci --no-audit --no-fund && break
+    [ "$attempt" = 3 ] && exit 1
+    echo "npm ci: попытка $attempt не удалась, повторяем..."; sleep 10
+  done
+  npm run build
+fi
 cp -r public .next/standalone/ 2>/dev/null || true
 mkdir -p .next/standalone/.next && cp -r .next/static .next/standalone/.next/
 pkill -f "standalone/server.js" 2>/dev/null || true

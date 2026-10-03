@@ -45,19 +45,18 @@ services:
       - ../../grafana/provisioning:/etc/grafana/provisioning:ro
 
   minio:
-    # Официальные образы minio/minio и minio/mc удалены из Docker Hub (сентябрь 2026);
-    # используем бесплатную сборку Chainguard. Бакет backend создаёт сам при первой загрузке.
-    image: cgr.dev/chainguard/minio:latest
+    # Официальные образы minio/minio удалены из Docker Hub, а cgr.dev отвечает 403 части пользователей.
+    # Берём архив Bitnami с Docker Hub с закреплённым тегом. Бакет backend создаёт сам при первой загрузке.
+    image: bitnamilegacy/minio:2025.7.23-debian-12-r5
     restart: unless-stopped
     environment:
       MINIO_ROOT_USER: ${INCIDENT_ATTACHMENTS_S3_ACCESS_KEY:?set INCIDENT_ATTACHMENTS_S3_ACCESS_KEY in .env}
       MINIO_ROOT_PASSWORD: ${INCIDENT_ATTACHMENTS_S3_SECRET_KEY:?set INCIDENT_ATTACHMENTS_S3_SECRET_KEY in .env}
-    command: server /data --console-address ":9001"
     ports:
       - "127.0.0.1:9000:9000"
       - "127.0.0.1:9001:9001"
     volumes:
-      - broiler_minio_data:/data
+      - broiler_minio_data:/bitnami/minio/data
 
 volumes:
   postgres_data:
