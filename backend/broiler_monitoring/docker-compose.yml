@@ -58,6 +58,15 @@ services:
     volumes:
       - broiler_minio_data:/bitnami/minio/data
 
+  mosquitto:
+    # MQTT-брокер для проверки шлюза S4-06 на локальной машине, без логина:
+    # docker compose --profile mqtt up -d mosquitto, затем MQTT_ENABLED=true для backend
+    image: eclipse-mosquitto:2
+    profiles: ["mqtt"]
+    command: ["mosquitto", "-c", "/mosquitto-no-auth.conf"]
+    ports:
+      - "127.0.0.1:1883:1883"
+
 volumes:
   postgres_data:
   broiler_influxdb_data:

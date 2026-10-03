@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { ChevronDown, ChevronRight, Clock3, LogOut } from "lucide-react"
-import { useMemo } from "react"
+import { useSyncExternalStore } from "react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -31,19 +31,24 @@ interface DashboardHeaderProps {
   onSectionChange: (section: DashboardSection) => void
 }
 
+const CLOCK_FORMAT = new Intl.DateTimeFormat("ru-RU", { dateStyle: "medium", timeStyle: "short" })
+
+function currentTimestamp() {
+  return CLOCK_FORMAT.format(new Date())
+}
+
+function subscribeToClock(onChange: () => void) {
+  const timer = window.setInterval(onChange, 30_000)
+  return () => window.clearInterval(timer)
+}
+
 export function DashboardHeader({
   activeSection,
   onSectionChange,
 }: DashboardHeaderProps) {
   const user = useCurrentUser()
-  const timestamp = useMemo(
-    () =>
-      new Intl.DateTimeFormat("ru-RU", {
-        dateStyle: "medium",
-        timeStyle: "short",
-      }).format(new Date()),
-    []
-  )
+  // Время только в браузере пользователя: сервер может жить в другом часовом поясе (ошибка гидратации React #418)
+  const timestamp = useSyncExternalStore(subscribeToClock, currentTimestamp, () => "")
 
   return (
     <header className="border-b border-black/5 px-4 py-4 dark:border-white/8 md:px-6">

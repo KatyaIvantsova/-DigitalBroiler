@@ -27,11 +27,13 @@ public class RuleAdminService {
         Rule rule = rules.findById(code).orElseThrow(() -> StructureService.notFound("Правило", code));
         AuditService.Changes changes = AuditService.changes()
                 .field("Минут до предупреждения", rule.getWarnMinutes(), request.warnMinutes())
+                .field("Порог предупреждения", rule.getWarnDelta(), request.warnDelta())
                 .field("Критичная дельта", rule.getCriticalDelta(), request.criticalDelta())
                 .field("Минут до критичного", rule.getCriticalMinutes(), request.criticalMinutes())
                 .field("Минут до закрытия", rule.getClearMinutes(), request.clearMinutes())
                 .field("Включено", rule.isEnabled(), request.enabled());
         rule.setWarnMinutes(request.warnMinutes());
+        rule.setWarnDelta(request.warnDelta());
         rule.setCriticalDelta(request.criticalDelta());
         rule.setCriticalMinutes(request.criticalMinutes());
         rule.setClearMinutes(request.clearMinutes());

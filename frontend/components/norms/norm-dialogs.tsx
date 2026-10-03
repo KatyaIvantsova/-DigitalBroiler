@@ -147,9 +147,19 @@ export function ImportNormsDialog({ onClose, onImported }: { onClose: () => void
   )
 }
 
+/** Правила по ежедневному учёту (S4-05): пороги — кратность нормы падежа или падение расхода к прошлым суткам, %. */
+export function isRecordRule(rule: Pick<Rule, "code" | "sensorType" | "warnDelta">) {
+  return rule.sensorType === null && rule.warnDelta !== null
+}
+
+export function recordRuleUnit(rule: Pick<Rule, "code">) {
+  return rule.code === "FLOCK_MORTALITY_DAILY" ? "× нормы" : "%"
+}
+
 export function EditRuleDialog({ rule, onClose, onSaved }: { rule: Rule; onClose: () => void; onSaved: () => void }) {
   const [warn, setWarn] = useState(String(rule.warnMinutes))
   const [delta, setDelta] = useState(fromNumber(rule.criticalDelta))
+  const [warnDelta, setWarnDelta] = useState(fromNumber(rule.warnDelta))
   const [critical, setCritical] = useState(String(rule.criticalMinutes))
   const [clear, setClear] = useState(String(rule.clearMinutes))
   const [enabled, setEnabled] = useState(rule.enabled)
@@ -164,6 +174,7 @@ export function EditRuleDialog({ rule, onClose, onSaved }: { rule: Rule; onClose
           method: "PUT",
           json: {
             warnMinutes: Number(warn),
+            warnDelta: toNumber(warnDelta),
             criticalDelta: toNumber(delta),
             criticalMinutes: Number(critical),
             clearMinutes: Number(clear),
@@ -173,6 +184,22 @@ export function EditRuleDialog({ rule, onClose, onSaved }: { rule: Rule; onClose
         onSaved()
       }}
     >
+      {isRecordRule(rule) ? (
+        <div className="grid grid-cols-2 gap-3">
+          <p className="col-span-2 text-sm text-zinc-600 dark:text-zinc-300">
+            {rule.code === "FLOCK_MORTALITY_DAILY"
+              ? "Падёж и выбраковка за сутки сравниваются с нормой дня: во сколько раз выше нормы — предупреждение и критично."
+              : "Расход за сутки сравнивается с прошлыми сутками: на сколько процентов упал — предупреждение и критично."}{" "}
+            Проверяется при каждом вводе и правке учёта.
+          </p>
+          <Field label={`Предупреждение, ${recordRuleUnit(rule)}`}>
+            <input className={inputClass} inputMode="decimal" value={warnDelta} onChange={(event) => setWarnDelta(event.target.value)} />
+          </Field>
+          <Field label={`Критично, ${recordRuleUnit(rule)}`}>
+            <input className={inputClass} inputMode="decimal" value={delta} onChange={(event) => setDelta(event.target.value)} />
+          </Field>
+        </div>
+      ) : (
       <div className="grid grid-cols-2 gap-3">
         <Field label="Минут вне нормы до предупреждения">
           <input className={inputClass} type="number" min={0} value={warn} onChange={(event) => setWarn(event.target.value)} />
@@ -187,6 +214,7 @@ export function EditRuleDialog({ rule, onClose, onSaved }: { rule: Rule; onClose
           <input className={inputClass} type="number" min={0} value={clear} onChange={(event) => setClear(event.target.value)} />
         </Field>
       </div>
+      )}
       <label className="flex items-center gap-2 text-sm">
         <input type="checkbox" checked={enabled} onChange={(event) => setEnabled(event.target.checked)} /> Правило включено
       </label>

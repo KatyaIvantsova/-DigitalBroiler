@@ -87,6 +87,19 @@ services:
     networks:
       - broiler-network
 
+  mosquitto:
+    # MQTT-брокер для шлюзов (S4-06); поднимается с профилем: docker compose --profile mqtt ...
+    image: eclipse-mosquitto:2
+    profiles: ["mqtt"]
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./deploy/mosquitto:/mosquitto/config
+      - mosquitto_data:/mosquitto/data
+    networks:
+      - broiler-network
+
   backend:
     image: ${IMAGE_PREFIX:-ghcr.io/koronus/broilerproject}-backend:${IMAGE_TAG:-latest}
     build: ./backend/broiler_monitoring
@@ -109,6 +122,11 @@ services:
       AUTH_BOOTSTRAP_ADMIN_USERNAME: ${AUTH_BOOTSTRAP_ADMIN_USERNAME:-admin}
       AUTH_BOOTSTRAP_ADMIN_PASSWORD: ${AUTH_BOOTSTRAP_ADMIN_PASSWORD:?set AUTH_BOOTSTRAP_ADMIN_PASSWORD in .env}
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-}
+      APP_TIMEZONE: ${APP_TIMEZONE:-Europe/Samara}
+      MQTT_ENABLED: ${MQTT_ENABLED:-false}
+      MQTT_URL: tcp://mosquitto:1883
+      MQTT_USERNAME: ${MQTT_USERNAME:-}
+      MQTT_PASSWORD: ${MQTT_PASSWORD:-}
       SENSOR_SIMULATION_ENABLED: ${SENSOR_SIMULATION_ENABLED:-true}
       SENSOR_SIMULATION_TARGET_URL: http://localhost:8080/api/v1/telemetry/readings
       SENSOR_SIMULATION_GATEWAY_ID: GW-FARM-1-HOUSE-4
@@ -143,6 +161,7 @@ volumes:
   influxdb_data:
   grafana_data:
   minio_data:
+  mosquitto_data:
 
 networks:
   broiler-network:

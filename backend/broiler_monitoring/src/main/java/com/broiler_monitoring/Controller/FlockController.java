@@ -1,21 +1,27 @@
 package com.broiler_monitoring.Controller;
 
+import com.broiler_monitoring.dto.kpi.FlockKpiResponse;
+import com.broiler_monitoring.dto.kpi.PlanFactResponse;
 import com.broiler_monitoring.dto.production.CloseFlockRequest;
 import com.broiler_monitoring.dto.production.DailyRecordRequest;
 import com.broiler_monitoring.dto.production.DailyRecordResponse;
+import com.broiler_monitoring.dto.production.FlockImportResult;
 import com.broiler_monitoring.dto.production.FlockRequest;
 import com.broiler_monitoring.dto.production.FlockResponse;
 import com.broiler_monitoring.dto.production.WeighingRequest;
 import com.broiler_monitoring.dto.production.WeighingResponse;
 import com.broiler_monitoring.entity.AuditLogEntry;
 import com.broiler_monitoring.enumerated.FlockStatus;
+import com.broiler_monitoring.kpi.KpiService;
 import com.broiler_monitoring.service.AuditService;
+import com.broiler_monitoring.service.FlockImportService;
 import com.broiler_monitoring.service.FlockJournalService;
 import com.broiler_monitoring.service.FlockService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +32,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 import java.util.List;
 import java.util.UUID;
@@ -38,11 +47,16 @@ public class FlockController {
     private final FlockService flocks;
     private final FlockJournalService journal;
     private final AuditService audit;
+    private final KpiService kpi;
+    private final FlockImportService importer;
 
-    public FlockController(FlockService flocks, FlockJournalService journal, AuditService audit) {
+    public FlockController(FlockService flocks, FlockJournalService journal, AuditService audit, KpiService kpi,
+                           FlockImportService importer) {
         this.flocks = flocks;
         this.journal = journal;
         this.audit = audit;
+        this.kpi = kpi;
+        this.importer = importer;
     }
 
     @GetMapping
@@ -56,6 +70,26 @@ public class FlockController {
     @Operation(summary = "Партия: возраст, поголовье, итоги учёта")
     public FlockResponse get(@PathVariable UUID id) {
         return flocks.get(id);
+    }
+
+    @GetMapping("/{id}/kpi")
+    @Operation(summary = "KPI партии: сохранность, FCR, привес, EPEF, отклонение от нормы кросса",
+            description = "Поголовье — на сегодня; FCR, привес и EPEF — на дату последнего взвешивания (для закрытой — на сдачу). null — нет данных.")
+    public FlockKpiResponse kpi(@PathVariable UUID id) {
+        return kpi.kpi(id);
+    }
+
+    @GetMapping("/{id}/plan-fact")
+    @Operation(summary = "План-факт: вес и FCR по взвешиваниям против кривой кросса, норма по дням для графика")
+    public PlanFactResponse planFact(@PathVariable UUID id) {
+        return kpi.planFact(id);
+    }
+
+    @PostMapping(value = "/{id}/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Импорт учёта из CSV учётной системы (технолог, администратор)",
+            description = "Формат — docs/sprint2/09-integration-protocol.md п. 3. При ошибках в файле ничего не сохраняется (applied = false).")
+    public FlockImportResult importRecords(@PathVariable UUID id, @RequestParam("file") MultipartFile file) throws IOException {
+        return importer.importCsv(id, file.getBytes());
     }
 
     @PostMapping
