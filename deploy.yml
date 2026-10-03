@@ -75,16 +75,15 @@ services:
       - broiler-network
 
   minio:
-    # Официальные образы minio/minio и minio/mc удалены из Docker Hub (сентябрь 2026);
-    # используем бесплатную сборку Chainguard. Бакет backend создаёт сам при первой загрузке.
-    image: cgr.dev/chainguard/minio:latest
+    # Официальные образы minio/minio удалены из Docker Hub, а cgr.dev отвечает 403 части пользователей.
+    # Берём архив Bitnami с Docker Hub с закреплённым тегом. Бакет backend создаёт сам при первой загрузке.
+    image: bitnamilegacy/minio:2025.7.23-debian-12-r5
     restart: unless-stopped
     environment:
       MINIO_ROOT_USER: *s3-access-key
       MINIO_ROOT_PASSWORD: *s3-secret-key
-    command: server /data --console-address ":9001"
     volumes:
-      - minio_data:/data
+      - minio_data:/bitnami/minio/data
     networks:
       - broiler-network
 
