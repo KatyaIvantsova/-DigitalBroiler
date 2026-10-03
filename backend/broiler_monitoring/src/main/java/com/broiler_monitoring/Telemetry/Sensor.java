@@ -53,6 +53,12 @@ public class Sensor {
     @Schema(description = "Единица измерения", example = "C")
     private String unit;
 
+    @Schema(description = "UUID птичника, где установлен датчик", example = "b0000000-0000-0000-0000-000000000004")
+    private UUID houseId;
+
+    @Schema(description = "UUID зоны птичника", example = "c0000000-0000-0000-0000-000000000401")
+    private UUID zoneId;
+
     @Column(nullable = false)
     @Schema(description = "Активен ли датчик и можно ли принимать от него показания", example = "true")
     private Boolean active = true;

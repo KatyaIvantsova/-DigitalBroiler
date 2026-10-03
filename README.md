@@ -46,7 +46,7 @@
 ├─ deploy/nginx/                 # конфиг nginx (единственная точка входа)
 ├─ grafana/provisioning/         # datasource и дашборды Grafana
 ├─ sensorImitation/              # Python-симулятор датчиков
-└─ docs/sprint1/                 # требования, модель данных, нормы, KPI, аудит, тест-план
+└─ docs/sprint1…sprint6/        # аналитика и отчёты по спринтам
 ```
 
 ---
@@ -117,7 +117,8 @@ cd frontend && npm run lint && npx tsc --noEmit && npm run build
 ## Аутентификация
 
 - Вход по логину и паролю: `POST /api/v1/auth/login` возвращает JWT, фронт хранит его в httpOnly-cookie.
-- Без токена API отвечает 401. Роли: OPERATOR, TECHNOLOGIST, VETERINARIAN, MANAGER, ADMIN (матрица прав — спринт 2).
+- Без токена API отвечает 401. Роли: OPERATOR, TECHNOLOGIST, VETERINARIAN, MANAGER, ADMIN; матрица прав — [docs/sprint2/04-roles-matrix.md](docs/sprint2/04-roles-matrix.md).
+- Пользователей, птичники и датчики заводит администратор в интерфейсе (меню пользователя → «Пользователи», «Птичники и датчики»).
 - Датчики и шлюзы пишут `POST /api/v1/telemetry/readings` с заголовком `X-Api-Key: $TELEMETRY_INGEST_API_KEY`.
 
 ---

@@ -1,8 +1,8 @@
 package com.broiler_monitoring.enumerated;
 
 /**
- * Роль доступа пользователя. Матрица прав по ролям — задача S2-04,
- * в спринте 1 любая роль даёт доступ ко всему API.
+ * Роль доступа пользователя. Матрица прав по ролям — docs/sprint2/04-roles-matrix.md,
+ * правила на уровне URL — SecurityConfig, на уровне данных (назначение на птичники) — AccessService.
  */
 public enum UserRole {
     OPERATOR,

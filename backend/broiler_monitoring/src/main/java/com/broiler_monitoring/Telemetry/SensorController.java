@@ -10,7 +10,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import com.broiler_monitoring.Telemetry.dto.SensorLocationRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -105,5 +107,16 @@ public class SensorController {
             @Valid @RequestBody Sensor sensor
     ){
         return sensorService.update(id, sensor);
+    }
+
+    @PatchMapping("/{id}/location")
+    @Operation(summary = "Перенести датчик", description = "Привязывает датчик к птичнику и зоне. Доступно администратору.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Привязка изменена"),
+            @ApiResponse(responseCode = "400", description = "Зона не из этого птичника", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Датчик, птичник или зона не найдены", content = @Content)
+    })
+    public Sensor updateLocation(@PathVariable UUID id, @RequestBody SensorLocationRequest request) {
+        return sensorService.updateLocation(id, request);
     }
 }

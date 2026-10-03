@@ -2,7 +2,11 @@ package com.broiler_monitoring.entity;
 
 import com.broiler_monitoring.enumerated.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,6 +18,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -49,6 +55,12 @@ public class AppUser {
 
     @Column(nullable = false)
     private boolean enabled = true;
+
+    /** Птичники, на которые назначен пользователь (S2-05). Оператор видит и правит только их. */
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_houses", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "house_id")
+    private Set<UUID> houseIds = new HashSet<>();
 
     public AppUser(UUID id, String fullName, String role) {
         this.id = id;

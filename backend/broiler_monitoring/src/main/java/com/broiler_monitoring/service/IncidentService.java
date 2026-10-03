@@ -15,6 +15,8 @@ import com.broiler_monitoring.repository.AppUserRepository;
 import com.broiler_monitoring.repository.IncidentHistoryRepository;
 import com.broiler_monitoring.repository.IncidentRepository;
 import com.broiler_monitoring.repository.NotificationRepository;
+import com.broiler_monitoring.security.CurrentActor;
+import com.broiler_monitoring.enumerated.UserRole;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -44,6 +47,7 @@ public class IncidentService {
     private final NotificationRepository notificationRepository;
     private final AppUserRepository userRepository;
     private final IncidentHistoryRepository historyRepository;
+    private final AuditService audit;
     private final Clock clock;
 
 
@@ -53,12 +57,14 @@ public class IncidentService {
             NotificationRepository notificationRepository,
             AppUserRepository userRepository,
             IncidentHistoryRepository historyRepository,
+            AuditService audit,
             Clock clock
     ){
         this.repository = repository;
         this.notificationRepository = notificationRepository;
         this.userRepository = userRepository;
         this.historyRepository = historyRepository;
+        this.audit = audit;
         this.clock = clock;
     }
 
@@ -104,10 +110,13 @@ public class IncidentService {
 
 
         incident.setStatus(IncidentStatus.OPEN);
+        incident.setHouseId(request.getHouseId());
+        incident.setZoneId(request.getZoneId());
+        incident.setFlockId(request.getFlockId());
 
-
-
-        return repository.save(incident);
+        Incident saved = repository.save(incident);
+        audit.record(AuditService.INCIDENT, saved.getId(), "CREATED", "Создан инцидент %s".formatted(saved.getCode()));
+        return saved;
     }
 
     @Transactional
@@ -152,7 +161,12 @@ public class IncidentService {
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "Incident with id '%s' not found".formatted(id)));
-
+        AuditService.Changes changes = AuditService.changes()
+                .field("Заголовок", incident.getTitle(), firstNonNull(updatedIncident.getTitle(), incident.getTitle()))
+                .field("Тип", incident.getType(), firstNonNull(updatedIncident.getType(), incident.getType()))
+                .field("Приоритет", incident.getPriority(), firstNonNull(updatedIncident.getPriority(), incident.getPriority()))
+                .field("Ответственный", incident.getResponsible(), firstNonNull(updatedIncident.getResponsible(), incident.getResponsible()))
+                .field("Решение", incident.getDecisionComment(), firstNonNull(updatedIncident.getDecisionComment(), incident.getDecisionComment()));
 
         if (updatedIncident.getTitle() != null) {
             incident.setTitle(updatedIncident.getTitle());
@@ -182,13 +196,15 @@ public class IncidentService {
             incident.setDecisionComment(blankToNull(updatedIncident.getDecisionComment()));
         }
 
-
-
-        return repository.save(incident);
+        Incident saved = repository.save(incident);
+        if (!changes.isEmpty()) {
+            audit.record(AuditService.INCIDENT, saved.getId(), "UPDATED", "Изменён инцидент %s".formatted(saved.getCode()), changes);
+        }
+        return saved;
     }
 
     public Incident changeStatus(UUID id, IncidentStatus newStatus){
-        Incident incident = repository.findById(id).orElseThrow();
+        Incident incident = getById(id);
         IncidentStatus oldStatus = incident.getStatus();
 
         switch (newStatus) {
@@ -221,13 +237,16 @@ public class IncidentService {
 
         // ── запись в историю (ТЗ: STATUS_CHANGED при любом переходе) ──
         if (oldStatus != newStatus) {
+            CurrentActor actor = CurrentActor.get();
             historyRepository.save(new IncidentHistory(
                     saved.getId(),
                     "STATUS_CHANGED",
-                    null,
-                    null,
+                    actor.id(),
+                    actor.name(),
                     "Статус изменён: %s → %s".formatted(oldStatus, newStatus)
             ));
+            audit.record(AuditService.INCIDENT, saved.getId(), "STATUS_CHANGED",
+                    "Инцидент %s: %s → %s".formatted(saved.getCode(), oldStatus, newStatus));
         }
 
         return saved;
@@ -253,16 +272,11 @@ public class IncidentService {
         String userName = request != null ? firstNotBlank(request.getUserName(), DEFAULT_USER_NAME) : DEFAULT_USER_NAME;
         String role = request != null ? firstNotBlank(request.getRole(), DEFAULT_USER_ROLE) : DEFAULT_USER_ROLE;
 
-        validateRoleForIncident(incident, role);
+        validateRoleForIncident(incident, CurrentActor.get().role());
 
+        // Пользователь, вошедший в систему, уже есть в базе: его ФИО и должность не переписываем
         AppUser user = userRepository.findById(userId)
-                .map(existingUser -> {
-                    existingUser.setFullName(userName);
-                    existingUser.setRole(role);
-                    return existingUser;
-                })
-                .orElseGet(() -> new AppUser(userId, userName, role));
-        userRepository.save(user);
+                .orElseGet(() -> userRepository.save(new AppUser(userId, userName, role)));
 
         LocalDateTime startedAt = LocalDateTime.now(clock);
         incident.setStatus(IncidentStatus.IN_PROGRESS);
@@ -279,6 +293,8 @@ public class IncidentService {
         }
 
         Incident savedIncident = repository.save(incident);
+        audit.record(AuditService.INCIDENT, savedIncident.getId(), "ASSIGNED",
+                "Инцидент %s взят в работу: %s".formatted(savedIncident.getCode(), user.getFullName()));
         historyRepository.save(new IncidentHistory(
                 savedIncident.getId(),
                 "ASSIGNED",
@@ -333,8 +349,17 @@ public class IncidentService {
         return IncidentPriority.valueOf(notification.getPriority().name());
     }
 
-    private void validateRoleForIncident(Incident incident, String role){
-        Set<String> allowedRoles = getAllowedRoles(incident);
+    /**
+     * Кто может взять инцидент в работу (S2-04): падёж и состояние стада — ветеринар, технолог,
+     * руководитель, администратор; остальные инциденты — оператор, технолог, руководитель, администратор.
+     */
+    private void validateRoleForIncident(Incident incident, UserRole role){
+        if (role == null) {
+            return;
+        }
+        Set<UserRole> allowedRoles = isFlockHealth(incident)
+                ? EnumSet.of(UserRole.VETERINARIAN, UserRole.TECHNOLOGIST, UserRole.MANAGER, UserRole.ADMIN)
+                : EnumSet.of(UserRole.OPERATOR, UserRole.TECHNOLOGIST, UserRole.MANAGER, UserRole.ADMIN);
 
         if (!allowedRoles.contains(role)){
             throw new ResponseStatusException(
@@ -343,25 +368,19 @@ public class IncidentService {
         }
     }
 
-    private Set<String> getAllowedRoles(Incident incident){
+    private boolean isFlockHealth(Incident incident){
+        if (incident.getType() == IncidentType.FLOCK_HEALTH) {
+            return true;
+        }
         String payload = "%s %s".formatted(
                 firstNotBlank(incident.getTitle(), ""),
                 firstNotBlank(incident.getDescription(), "")
         ).toLowerCase(Locale.ROOT);
+        return payload.contains("падеж") || payload.contains("падёж") || payload.contains("вет");
+    }
 
-        if (payload.contains("падеж") || payload.contains("вет")){
-            return Set.of("Ветврач", "Ветеринарная служба", "Директор по качеству");
-        }
-
-        if (payload.contains("оборуд") || payload.contains("вентил") || payload.contains("температур")){
-            return Set.of("Главный инженер", "Техническая служба", "Директор по качеству");
-        }
-
-        if (payload.contains("корм")){
-            return Set.of("Зоотехник", "Старший смены", "Директор по качеству");
-        }
-
-        return Set.of("Старший смены", "Оператор", "Директор по качеству");
+    private static <T> T firstNonNull(T value, T defaultValue){
+        return value != null ? value : defaultValue;
     }
 
 }
