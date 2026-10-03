@@ -34,6 +34,7 @@ import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetT
 import { Textarea } from "@/components/ui/textarea"
 import { uploadIncidentAttachments } from "@/lib/incident-attachments"
 import { cn } from "@/lib/utils"
+import { useCurrentUser } from "@/hooks/use-current-user"
 
 type IncidentPriority = "critical" | "high" | "medium" | "low"
 type IncidentStatus = "new" | "inProgress" | "overdue" | "resolved" | "closed" | "cancelled"
@@ -194,11 +195,6 @@ const backendSourceIconMap: Record<string, LucideIcon> = {
 
 const unknownValue = "—"
 const incidentRefreshIntervalMs = 10_000
-
-const currentUser = {
-  id: "00000000-0000-0000-0000-000000000001",
-  name: "Павел Романов",
-}
 
 const enterpriseRoles = [
   "Директор по качеству",
@@ -688,6 +684,8 @@ interface IncidentsPageProps {
 }
 
 export function IncidentsPage({ selectedIncidentId }: IncidentsPageProps = {}) {
+  const sessionUser = useCurrentUser()
+  const currentUser = { id: sessionUser?.id ?? "", name: sessionUser?.fullName ?? "" }
   const router = useRouter()
   const [incidents, setIncidents] = useState<Incident[]>(initialIncidents)
   const [activeIncidentId, setActiveIncidentId] = useState(
@@ -974,7 +972,7 @@ export function IncidentsPage({ selectedIncidentId }: IncidentsPageProps = {}) {
   }
 
   const handleAssignIncident = async (incident: Incident) => {
-    if (incident.status !== "new") return
+    if (incident.status !== "new" || !sessionUser) return
 
     setAssigningIncidentId(incident.id)
 

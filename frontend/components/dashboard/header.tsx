@@ -1,8 +1,8 @@
 "use client"
 
-import { ChevronDown, ChevronRight, Clock3, User } from "lucide-react"
+import { ChevronDown, ChevronRight, Clock3, LogOut } from "lucide-react"
 import { useMemo } from "react"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +10,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { logout, useCurrentUser } from "@/hooks/use-current-user"
+import { ROLE_LABELS } from "@/lib/auth"
+
+function initials(fullName: string): string {
+  return fullName
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join("")
+}
 
 export type DashboardSection = "technical" | "incidents" | "analytics" | "notifications" | "tasks"
 
@@ -22,6 +33,7 @@ export function DashboardHeader({
   activeSection,
   onSectionChange,
 }: DashboardHeaderProps) {
+  const user = useCurrentUser()
   const timestamp = useMemo(
     () =>
       new Intl.DateTimeFormat("ru-RU", {
@@ -41,7 +53,7 @@ export function DashboardHeader({
             <span className="truncate">Ситуационный центр</span>
             <ChevronRight className="size-4 opacity-50" />
             <span className="truncate font-medium text-zinc-900 dark:text-zinc-100">
-              Директор по качеству
+              {user ? user.position : "…"}
             </span>
           </nav>
         </div>
@@ -104,29 +116,26 @@ export function DashboardHeader({
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-3 rounded-full border border-black/5 bg-white/80 px-2 py-2 text-left shadow-sm transition hover:bg-white dark:border-white/10 dark:bg-white/6 dark:hover:bg-white/10">
                   <Avatar className="size-9 border border-black/5 dark:border-white/10">
-                    <AvatarImage src="/avatar.jpg" alt="Павел Романов" />
                     <AvatarFallback className="bg-zinc-900 text-white dark:bg-white dark:text-zinc-900">
-                      ПР
+                      {user ? initials(user.fullName) : ""}
                     </AvatarFallback>
                   </Avatar>
                   <div className="hidden min-w-0 sm:block">
                     <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                      Павел Романов
+                      {user?.fullName ?? "Загрузка…"}
                     </div>
                     <div className="text-xs text-zinc-500 dark:text-zinc-400">
-                      Контроль качества
+                      {user ? ROLE_LABELS[user.role] : ""}
                     </div>
                   </div>
                   <ChevronDown className="hidden size-4 text-zinc-400 sm:block" />
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="border-black/5 bg-white/95 dark:border-white/10 dark:bg-zinc-900/95">
-                <DropdownMenuItem>
-                  <User className="mr-2 size-4" />
-                  Профиль
+                <DropdownMenuItem onSelect={() => void logout()}>
+                  <LogOut className="mr-2 size-4" />
+                  Выйти
                 </DropdownMenuItem>
-                <DropdownMenuItem>Настройки</DropdownMenuItem>
-                <DropdownMenuItem>Выйти</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>

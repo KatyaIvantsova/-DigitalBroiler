@@ -1,66 +1,74 @@
+# Локальная инфраструктура для разработки: Postgres, InfluxDB, Grafana, MinIO.
+# Значения берутся из .env рядом с этим файлом (cp .env.example .env).
+# Порты открыты только на 127.0.0.1. Прод-сборка описана в deploy.yml в корне.
 services:
   postgres:
     image: postgres:16
-    container_name: broiler-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-broiler_monitoring}
-      POSTGRES_USER: ${POSTGRES_USER:-broiler_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-broiler_pass}
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB in .env}
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
     ports:
-      - "${POSTGRES_PORT:-5434}:5432"
+      - "127.0.0.1:${POSTGRES_PORT:-5434}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
   influxdb:
     image: influxdb:1.8
     restart: unless-stopped
     environment:
-      INFLUXDB_DB: broiler_telemetry
-      INFLUXDB_HTTP_AUTH_ENABLED: "false"
+      INFLUXDB_DB: ${INFLUXDB_DB:-broiler_telemetry}
     ports:
-      - "8086:8086"
+      - "127.0.0.1:8086:8086"
     volumes:
       - broiler_influxdb_data:/var/lib/influxdb
     healthcheck:
-      test: [ "CMD-SHELL", "influx -execute 'SHOW DATABASES'" ]
+      test: ["CMD-SHELL", "influx -execute 'SHOW DATABASES'"]
       interval: 10s
       timeout: 5s
       retries: 10
+
   grafana:
-    image: grafana/grafana:latest
-    container_name: broiler-grafana
+    image: grafana/grafana:11.2.0
     restart: unless-stopped
+    depends_on:
+      influxdb:
+        condition: service_healthy
     environment:
-      GF_SECURITY_ADMIN_USER: admin
-      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:?set GRAFANA_ADMIN_USER in .env}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?set GRAFANA_ADMIN_PASSWORD in .env}
     ports:
-      - "3001:3000"
+      - "127.0.0.1:3001:3000"
     volumes:
       - broiler_grafana_data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning:ro
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - ../../grafana/provisioning:/etc/grafana/provisioning:ro
+
   minio:
     image: minio/minio:latest
-    container_name: broiler-minio
     restart: unless-stopped
     environment:
-      MINIO_ROOT_USER: ${INCIDENT_ATTACHMENTS_S3_ACCESS_KEY:-minioadmin}
-      MINIO_ROOT_PASSWORD: ${INCIDENT_ATTACHMENTS_S3_SECRET_KEY:-minioadmin}
+      MINIO_ROOT_USER: ${INCIDENT_ATTACHMENTS_S3_ACCESS_KEY:?set INCIDENT_ATTACHMENTS_S3_ACCESS_KEY in .env}
+      MINIO_ROOT_PASSWORD: ${INCIDENT_ATTACHMENTS_S3_SECRET_KEY:?set INCIDENT_ATTACHMENTS_S3_SECRET_KEY in .env}
     command: server /data --console-address ":9001"
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
     volumes:
       - broiler_minio_data:/data
+
   minio-init:
     image: minio/mc:latest
     depends_on:
       - minio
+    environment:
+      S3_ACCESS_KEY: ${INCIDENT_ATTACHMENTS_S3_ACCESS_KEY}
+      S3_SECRET_KEY: ${INCIDENT_ATTACHMENTS_S3_SECRET_KEY}
+      S3_BUCKET: ${INCIDENT_ATTACHMENTS_S3_BUCKET:-broiler-incident-attachments}
     entrypoint: >
       /bin/sh -c "
-      until mc alias set local http://minio:9000 ${INCIDENT_ATTACHMENTS_S3_ACCESS_KEY:-minioadmin} ${INCIDENT_ATTACHMENTS_S3_SECRET_KEY:-minioadmin}; do sleep 2; done;
-      mc mb -p --ignore-existing local/${INCIDENT_ATTACHMENTS_S3_BUCKET:-broiler-incident-attachments};
+      until mc alias set local http://minio:9000 \"$$S3_ACCESS_KEY\" \"$$S3_SECRET_KEY\"; do sleep 2; done;
+      mc mb -p --ignore-existing \"local/$$S3_BUCKET\";
       exit 0;
       "
 
