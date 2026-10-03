@@ -1,6 +1,7 @@
 package com.broiler_monitoring.Telemetry.simulation;
 
 import com.broiler_monitoring.Telemetry.SensorType;
+import com.broiler_monitoring.security.TelemetryApiKeyFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,13 +44,16 @@ public class SensorHttpSimulationScheduler {
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final String targetUrl;
     private final String gatewayId;
+    private final String apiKey;
 
     public SensorHttpSimulationScheduler(
             @Value("${sensor.simulation.target-url:http://localhost:8080/api/v1/telemetry/readings}") String targetUrl,
-            @Value("${sensor.simulation.gateway-id:GW-FARM-1-HOUSE-4}") String gatewayId
+            @Value("${sensor.simulation.gateway-id:GW-FARM-1-HOUSE-4}") String gatewayId,
+            @Value("${telemetry.ingest.api-key:}") String apiKey
     ) {
         this.targetUrl = targetUrl;
         this.gatewayId = gatewayId;
+        this.apiKey = apiKey;
     }
 
     @Scheduled(
@@ -59,11 +63,14 @@ public class SensorHttpSimulationScheduler {
     public void sendReadings() {
         String payload = buildPayload();
 
-        HttpRequest request = HttpRequest.newBuilder(URI.create(targetUrl))
+        HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(targetUrl))
                 .timeout(Duration.ofSeconds(10))
                 .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(payload, StandardCharsets.UTF_8))
-                .build();
+                .POST(HttpRequest.BodyPublishers.ofString(payload, StandardCharsets.UTF_8));
+        if (!apiKey.isBlank()) {
+            requestBuilder.header(TelemetryApiKeyFilter.HEADER, apiKey);
+        }
+        HttpRequest request = requestBuilder.build();
 
         try {
             HttpResponse<String> response = httpClient.send(

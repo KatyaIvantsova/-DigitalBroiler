@@ -1,7 +1,11 @@
 package com.broiler_monitoring.entity;
 
+import com.broiler_monitoring.enumerated.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -25,11 +29,26 @@ public class AppUser {
     @Column(nullable = false)
     private String fullName;
 
+    /** Должность для отображения, например «Директор по качеству». */
     @Column(nullable = false)
     private String role;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(unique = true, length = 64)
+    private String username;
+
+    @JsonIgnore
+    @Column(name = "password_hash", length = 100)
+    private String passwordHash;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "access_role", nullable = false, length = 32)
+    private UserRole accessRole = UserRole.OPERATOR;
+
+    @Column(nullable = false)
+    private boolean enabled = true;
 
     public AppUser(UUID id, String fullName, String role) {
         this.id = id;
