@@ -75,3 +75,15 @@ jobs:
           push: false
           cache-from: type=gha,scope=frontend
           cache-to: type=gha,mode=max,scope=frontend
+
+      - name: MinIO image pulls and starts
+        run: |
+          docker run -d --name minio -p 9000:9000 \
+            -e MINIO_ROOT_USER=ci-user -e MINIO_ROOT_PASSWORD=ci-password-123 \
+            cgr.dev/chainguard/minio:latest server /data --console-address ":9001"
+          for _ in $(seq 1 30); do
+            curl -fs http://localhost:9000/minio/health/live && exit 0
+            sleep 2
+          done
+          docker logs minio
+          exit 1
