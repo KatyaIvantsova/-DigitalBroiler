@@ -69,7 +69,7 @@
 4. Войдите: логин `admin`, пароль `change-me-local`.
 
 Перезапуск: `bash scripts/dev-up.sh`, остановка: `bash scripts/dev-down.sh`, логи — в папке `logs/`.
-Бесплатная квота GitHub — 120 ядро-часов в месяц; остановите codespace, когда закончите (Codespaces → Stop).
+Бесплатная квота GitHub — 120 ядро-часов в месяц (около 60 часов на 2-ядерной машине); остановите codespace, когда закончите (Codespaces → Stop).
 
 ---
 
