@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { ChevronDown, ChevronRight, Clock3, LogOut } from "lucide-react"
 import { useMemo } from "react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -12,6 +13,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { logout, useCurrentUser } from "@/hooks/use-current-user"
 import { ROLE_LABELS } from "@/lib/auth"
+import { visibleNavItems } from "@/components/app/app-shell"
 
 function initials(fullName: string): string {
   return fullName
@@ -59,6 +61,9 @@ export function DashboardHeader({
         </div>
 
         <div className="flex shrink-0 items-center gap-3">
+          <Link href="/flocks" className="dashboard-chip whitespace-nowrap hover:bg-white dark:hover:bg-white/10">
+            Партии
+          </Link>
           <Tabs
             value={activeSection}
             onValueChange={(value) => onSectionChange(value as DashboardSection)}
@@ -132,6 +137,13 @@ export function DashboardHeader({
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="border-black/5 bg-white/95 dark:border-white/10 dark:bg-zinc-900/95">
+                {visibleNavItems(user?.role)
+                  .filter((item) => item.href !== "/")
+                  .map((item) => (
+                    <DropdownMenuItem key={item.href} asChild>
+                      <Link href={item.href}>{item.label}</Link>
+                    </DropdownMenuItem>
+                  ))}
                 <DropdownMenuItem onSelect={() => void logout()}>
                   <LogOut className="mr-2 size-4" />
                   Выйти
