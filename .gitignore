@@ -30,3 +30,6 @@ target/
 # Frontend uses npm (package-lock.json) — other lock files are not committed
 pnpm-lock.yaml
 yarn.lock
+
+# Логи локального запуска (scripts/dev-up.sh)
+logs/

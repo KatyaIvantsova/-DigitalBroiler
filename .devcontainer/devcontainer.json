@@ -1,0 +1,23 @@
+{
+  "name": "Цифровой бройлер",
+  "image": "mcr.microsoft.com/devcontainers/java:1-21-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "22" },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "hostRequirements": { "cpus": 2, "memory": "8gb" },
+  "forwardPorts": [3000, 8080, 3001],
+  "portsAttributes": {
+    "3000": { "label": "Веб-интерфейс", "onAutoForward": "openBrowser" },
+    "8080": { "label": "Backend API (Swagger: /swagger-ui.html)", "onAutoForward": "silent" },
+    "3001": { "label": "Grafana", "onAutoForward": "silent" }
+  },
+  "postCreateCommand": "bash scripts/dev-setup.sh",
+  "postStartCommand": "bash scripts/dev-up.sh",
+  "customizations": {
+    "codespaces": { "openFiles": ["README.md"] },
+    "vscode": {
+      "extensions": ["vscjava.vscode-java-pack", "dbaeumer.vscode-eslint"]
+    }
+  }
+}
