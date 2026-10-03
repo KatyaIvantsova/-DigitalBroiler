@@ -23,6 +23,11 @@ public class SecurityConfig {
     private static final String[] USER_ROLES = Arrays.stream(UserRole.values())
             .map(Enum::name)
             .toArray(String[]::new);
+    private static final String OPERATOR = UserRole.OPERATOR.name();
+    private static final String TECHNOLOGIST = UserRole.TECHNOLOGIST.name();
+    private static final String VETERINARIAN = UserRole.VETERINARIAN.name();
+    private static final String MANAGER = UserRole.MANAGER.name();
+    private static final String ADMIN = UserRole.ADMIN.name();
 
     @Bean
     SecurityFilterChain securityFilterChain(
@@ -38,7 +43,17 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/health", "/actuator/health/**").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/telemetry/readings")
-                        .hasAnyAuthority(ingestOrUserAuthorities())
+                        .hasAnyAuthority(ingestOrAuthorities(ADMIN))
+                        // Матрица прав S2-04 (docs/sprint2/04-roles-matrix.md). Чтение доступно всем ролям,
+                        // ограничения на запись перечислены ниже; оператора дополнительно ограничивает AccessService.
+                        .requestMatchers("/api/v1/users/**").hasRole(ADMIN)
+                        .requestMatchers("/api/v1/audit/**").hasAnyRole(TECHNOLOGIST, MANAGER, ADMIN)
+                        .requestMatchers(HttpMethod.GET, "/api/v1/**").hasAnyRole(USER_ROLES)
+                        .requestMatchers("/api/v1/sites/**", "/api/v1/houses/**", "/api/v1/zones/**", "/api/v1/sensors/**")
+                        .hasRole(ADMIN)
+                        .requestMatchers("/api/v1/flocks/*/daily-records/**", "/api/v1/flocks/*/weighings/**")
+                        .hasAnyRole(OPERATOR, TECHNOLOGIST, VETERINARIAN, ADMIN)
+                        .requestMatchers("/api/v1/flocks/**").hasAnyRole(TECHNOLOGIST, ADMIN)
                         .anyRequest().hasAnyRole(USER_ROLES))
                 .oauth2ResourceServer(oauth -> oauth.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .addFilterBefore(new TelemetryApiKeyFilter(telemetryApiKey), BearerTokenAuthenticationFilter.class);
@@ -59,12 +74,12 @@ public class SecurityConfig {
         return converter;
     }
 
-    private static String[] ingestOrUserAuthorities() {
-        String[] result = new String[USER_ROLES.length + 1];
-        for (int i = 0; i < USER_ROLES.length; i++) {
-            result[i] = "ROLE_" + USER_ROLES[i];
+    private static String[] ingestOrAuthorities(String... roles) {
+        String[] result = new String[roles.length + 1];
+        for (int i = 0; i < roles.length; i++) {
+            result[i] = "ROLE_" + roles[i];
         }
-        result[USER_ROLES.length] = TelemetryApiKeyFilter.AUTHORITY;
+        result[roles.length] = TelemetryApiKeyFilter.AUTHORITY;
         return result;
     }
 }

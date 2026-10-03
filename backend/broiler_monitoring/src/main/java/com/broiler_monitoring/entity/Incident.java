@@ -66,6 +66,18 @@ public class Incident {
 
     private UUID notificationId;
 
+    private UUID houseId;
+
+    private UUID zoneId;
+
+    private UUID flockId;
+
+    private UUID sensorId;
+
+    /** Код правила движка, создавшего инцидент (S3-03); null для ручных инцидентов. */
+    @Column(length = 64)
+    private String ruleCode;
+
     private UUID assigneeId;
 
     private String assigneeRole;
